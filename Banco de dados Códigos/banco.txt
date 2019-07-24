@@ -1,0 +1,11 @@
+create table concurso(
+
+	id integer primary key,
+	dataInicio date not null,
+	horaInicio time [4] not null,
+	dataFim date not null,
+	horaFim time [4] not null,
+	dezena integer not null,
+	foreign key (dezena) references dezena(id)
+	
+)
