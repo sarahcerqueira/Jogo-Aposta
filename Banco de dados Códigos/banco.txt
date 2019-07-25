@@ -1,3 +1,26 @@
+senha: admin
+
+create table jogador(
+	idJogador serial primary key,
+	telefone bigint,
+	nome varchar(30)		
+)
+
+create table usuario(
+
+	id integer primary key,
+	nome varchar(30),
+	username varchar(30),
+	senha varchar(10),
+	cadConcurso boolean,
+	cadVendedor boolean,
+	remVendedor boolean,
+	listaGanhadores boolean,
+	verArrecadacao boolean
+	
+)
+
+
 create table concurso(
 
 	id integer primary key,
@@ -7,5 +30,21 @@ create table concurso(
 	horaFim time [4] not null,
 	dezena integer not null,
 	foreign key (dezena) references dezena(id)
+	
+)
+
+
+create table aposta(
+	id serial primary key,
+	concurso integer not null,
+	jogador integer not null,
+	usuario integer not null,
+	data timestamp not null,
+	preco money,
+	dezena integer not null,
+	foreign key (dezena) references dezena(id),
+	foreign key (concurso) references concurso(id),
+	foreign key (jogador) references jogador(id),
+	foreign key (usuario) references usuario(id)
 	
 )
