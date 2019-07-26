@@ -36,4 +36,3 @@ dependencies {
     //Adição de biblioteca
     implementation 'com.github.faranjit:currency-edittext:1.0.1'
 }
-

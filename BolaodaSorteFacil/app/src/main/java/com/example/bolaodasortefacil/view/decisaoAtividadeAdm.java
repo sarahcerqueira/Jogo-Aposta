@@ -1,19 +1,14 @@
 package com.example.bolaodasortefacil.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
 import com.example.bolaodasortefacil.R;
+import android.os.Bundle;
 
-
-public class aposta extends AppCompatActivity {
+public class decisaoAtividadeAdm extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_aposta2);
-
+        setContentView(R.layout.activity_decisao_atividade_adm);
     }
-
-
 }
