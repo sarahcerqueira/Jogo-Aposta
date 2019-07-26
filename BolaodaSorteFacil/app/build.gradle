@@ -19,6 +19,11 @@ android {
     }
 }
 
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -29,5 +34,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     //Adição de biblioteca
-    compile 'org.fabiomsr:moneytextview:1.0.3'
+    implementation 'com.github.faranjit:currency-edittext:1.0.1'
 }
+

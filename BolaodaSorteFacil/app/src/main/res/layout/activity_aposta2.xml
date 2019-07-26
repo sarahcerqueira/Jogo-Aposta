@@ -307,18 +307,22 @@
                 android:text="@string/valor"
                 android:textSize="24sp" />
 
+            <faranjit.currency.edittext.CurrencyEditText
+                android:id="@+id/valor"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:hint="R$ 0,00"
+                android:inputType="numberDecimal"
+                android:textColor="@android:color/black"
+                app:groupDivider="."
+                app:locale="pt_BR"
+                app:monetaryDivider=","
+                app:showSymbol="true" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="141dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/default_format"
-                    android:inputType="numberDecimal"
-                    android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"/>
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -342,7 +346,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/estilo_botao"
                             android:backgroundTint="#1E88E5"
-                            android:text="Button"
+                            android:text="+ aposta"
                             android:textColor="#F5F5F7"
                             tools:text="+ aposta" />
                     </LinearLayout>
