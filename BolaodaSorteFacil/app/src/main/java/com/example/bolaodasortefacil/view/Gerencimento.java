@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.bolaodasortefacil.R;
 import android.os.Bundle;
 
-public class gerencimento extends AppCompatActivity {
+public class Gerencimento extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

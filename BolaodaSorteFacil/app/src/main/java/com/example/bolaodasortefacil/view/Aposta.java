@@ -1,14 +1,19 @@
 package com.example.bolaodasortefacil.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.bolaodasortefacil.R;
-import android.os.Bundle;
 
-public class login extends AppCompatActivity {
+import android.os.Bundle;
+import com.example.bolaodasortefacil.R;
+
+
+public class Aposta extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_aposta2);
+
     }
+
+
 }
