@@ -1,22 +1,16 @@
 senha: admin
 
 create table jogador(
-	idJogador serial primary key,
-	telefone bigint,
+	telefone varchar(14) primary key,
 	nome varchar(30)		
 )
 
 create table usuario(
-
-	id integer primary key,
+	id serial primary key,
 	nome varchar(30),
-	username varchar(30),
+	username varchar(30) UNIQUE,
 	senha varchar(10),
-	cadConcurso boolean,
-	cadVendedor boolean,
-	remVendedor boolean,
-	listaGanhadores boolean,
-	verArrecadacao boolean
+	admin boolean
 	
 )
 
@@ -46,5 +40,21 @@ create table aposta(
 	foreign key (concurso) references concurso(id),
 	foreign key (jogador) references jogador(id),
 	foreign key (usuario) references usuario(id)
+	
+)
+
+create table dezena(
+	id integer primary key,
+	d1 smallint,
+	d2 smallint,
+	d3 smallint,
+	d4 smallint,
+	d5 smallint,
+	d6 smallint,
+	d7 smallint,
+	d8 smallint,
+	d9 smallint,
+	d10 smallint
+	
 	
 )

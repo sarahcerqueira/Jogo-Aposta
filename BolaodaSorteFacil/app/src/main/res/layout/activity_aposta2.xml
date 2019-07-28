@@ -52,7 +52,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/estilo_botao"
-                android:backgroundTint="#FDD835"
+                android:backgroundTint="@color/colorAmarelo"
                 android:fontFamily="@font/amaranth"
                 android:text="@string/limpa"
                 android:textSize="18sp" />
