@@ -1,27 +1,57 @@
 package com.example.bolaodasortefacil.model;
+import android.os.AsyncTask;
+
+import java.io.PrintWriter;
 import java.net.Socket;
-import java.io.PrintStream;
+import java.io.ObjectInputStream;
 import java.util.Scanner;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
 
 
-public class Servidor {
-    private static final String ipServidor = "192.168.1.106";
+public class Servidor extends AsyncTask<String, Void, String> {
+
+    private static final String ipServidor = "221.1.1.108";
     private static final int porta = 1010;
     private Socket servidor ;
     private Scanner carta;
-    private PrintStream lapis;
+    private PrintWriter lapis;
+    private String resultado;
 
 
     public Servidor(){}
+
+    @Override
+    protected String doInBackground(String... voids) {
+
+        try {
+            this.servidor = new Socket(this.ipServidor, this.porta);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ObjectInputStream ler = new ObjectInputStream(this.servidor.getInputStream());
+            try {
+                this.resultado = (String)ler.readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+
 
     public void abrirConexao(){
         try {
             this.servidor = new Socket(this.ipServidor, this.porta);
             this.carta = new Scanner(this.servidor.getInputStream());
-            this.lapis = new PrintStream(this.servidor.getOutputStream());
+            this.lapis = new PrintWriter(this.servidor.getOutputStream());
             
         } catch (UnknownHostException e) {
             // TODO Auto-generated catch block
@@ -43,11 +73,18 @@ public class Servidor {
     }
     
     public String lerDoServidor() {
-    	return this.carta.nextLine();
+        if(temProxLinha()){
+    	return this.carta.nextLine();}
+
+        return null;
     }
     
     public void escreverParaServidor(String mensagem) {
     	this.lapis.println(mensagem);
+    }
+
+    public String getResultador(){
+        return this.resultado;
     }
     
 
