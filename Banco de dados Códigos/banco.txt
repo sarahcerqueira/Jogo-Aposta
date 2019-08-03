@@ -31,14 +31,14 @@ create table concurso(
 create table aposta(
 	id serial primary key,
 	concurso integer not null,
-	jogador integer not null,
+	jogador varchar(14) not null,
 	usuario integer not null,
 	data timestamp not null,
 	preco money,
 	dezena integer not null,
 	foreign key (dezena) references dezena(id),
 	foreign key (concurso) references concurso(id),
-	foreign key (jogador) references jogador(id),
+	foreign key (jogador) references jogador(telefone),
 	foreign key (usuario) references usuario(id)
 	
 )

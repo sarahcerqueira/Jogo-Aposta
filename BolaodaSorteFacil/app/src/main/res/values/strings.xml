@@ -97,5 +97,10 @@
     <string name="valor">Valor</string>
     <string name="mais_aposta">+ apostas</string>
     <string name="finalizar">Finalizar</string>
+    <string name="cad_concurso">Cadastro de Concurso</string>
+    <string name="cad_vendedor">Cadastro de Vendedor</string>
+    <string name="erro_login">Senha ou usuário incorreto</string>
+
+
 
 </resources>

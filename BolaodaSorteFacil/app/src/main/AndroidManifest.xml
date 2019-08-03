@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bolaodasortefacil">
-<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_bolao_round"
@@ -9,13 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_bolao"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".view.Login"></activity>
-        <activity android:name=".view.Gerencimento"></activity>
-        <activity android:name=".view.Aposta"></activity>
-
+        <activity android:name=".view.LoginJogador"></activity>
+        <activity android:name=".view.ListarVendedores" />
+        <activity android:name=".view.CadastroVendedor" />
+        <activity android:name=".view.CadastroConcurso" />
+        <activity android:name=".view.OpcaoAdm" />
+        <activity android:name=".view.Gerencimento" />
+        <activity android:name=".view.Aposta" />
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
