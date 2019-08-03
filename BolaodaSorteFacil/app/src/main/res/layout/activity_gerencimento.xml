@@ -25,9 +25,11 @@
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="8dp">
 
                 <TableRow
+                    android:onClick="cadastroConcurcoActivity"
                     android:layout_width="match_parent"
                     android:layout_height="67dp"
                     android:padding="5dp">
@@ -40,10 +42,10 @@
                         <ImageView
                             android:id="@+id/imageView3"
                             android:layout_width="wrap_content"
-                            android:layout_height="104dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@android:color/darker_gray"
-                            tools:srcCompat="@drawable/ic_cad_concurso" />
+                            app:srcCompat="@drawable/ic_cad_concurso" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -59,7 +61,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
                             android:layout_weight="1"
-                            android:fontFamily="@font/amaranth"
+                            android:fontFamily="sans-serif-medium"
                             android:text="Cadastrar Concurso"
                             android:textSize="24sp" />
                     </LinearLayout>
@@ -67,6 +69,7 @@
                 </TableRow>
 
                 <TableRow
+                    android:onClick="listaConcursoActivity"
                     android:layout_width="match_parent"
                     android:layout_height="67dp"
                     android:padding="5dp">
@@ -79,10 +82,10 @@
                         <ImageView
                             android:id="@+id/imageView4"
                             android:layout_width="wrap_content"
-                            android:layout_height="104dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@android:color/darker_gray"
-                            tools:srcCompat="@drawable/ic_list_concurso" />
+                            app:srcCompat="@drawable/ic_list_concurso" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -98,7 +101,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
                             android:layout_weight="1"
-                            android:fontFamily="@font/amaranth"
+                            android:fontFamily="sans-serif-medium"
                             android:text="Listar Concurso"
                             android:textSize="24sp" />
                     </LinearLayout>
@@ -106,44 +109,7 @@
                 </TableRow>
 
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="67dp"
-                    android:padding="5dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="match_parent"
-                            android:layout_height="104dp"
-                            android:background="@android:color/darker_gray"
-                            tools:srcCompat="@drawable/ic_add_vendedor" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="284dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/cad_vendedor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/amaranth"
-                            android:text="Cadastrar Vendedor"
-                            android:textSize="24sp" />
-                    </LinearLayout>
-
-                </TableRow>
-
-                <TableRow
+                    android:onClick="listaVendedorActivity"
                     android:layout_width="match_parent"
                     android:layout_height="67dp"
                     android:padding="5dp">
@@ -154,11 +120,12 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/imageView6"
-                            android:layout_width="match_parent"
-                            android:layout_height="104dp"
-                            android:background="@android:color/darker_gray"
-                            tools:srcCompat="@drawable/ic_list_vendedores" />
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/colorCinzaClaro"
+                            app:srcCompat="@drawable/ic_list_vendedores" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -174,14 +141,51 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
                             android:layout_weight="1"
-                            android:fontFamily="@font/amaranth"
+                            android:fontFamily="sans-serif-medium"
                             android:text="Ver Vendedores"
                             android:textSize="24sp" />
+
                     </LinearLayout>
 
                 </TableRow>
 
+                <TableRow
+                    android:onClick="cadastroVendedorActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp">
 
+                    <LinearLayout
+                        android:layout_width="118dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="146dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/colorCinzaClaro"
+                            app:srcCompat="@drawable/ic_add_vendedor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="284dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center_horizontal"
+                            android:text="Cadastrar Vendedor"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+                </TableRow>
 
 
             </TableLayout>

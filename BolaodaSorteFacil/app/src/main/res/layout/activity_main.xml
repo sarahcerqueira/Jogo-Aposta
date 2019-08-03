@@ -57,7 +57,7 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_username"
+                    android:id="@+id/ed_telefone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Usuario"
@@ -88,7 +88,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/bt_login"
+                android:id="@+id/bt_entrar"
                 android:onClick="login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

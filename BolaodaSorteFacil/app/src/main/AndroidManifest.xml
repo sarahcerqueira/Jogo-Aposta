@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_bolao"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.LoginJogador"></activity>
+        <activity android:name=".CadastroJogador"></activity>
+        <activity android:name=".view.ListarConcurso" />
+        <activity android:name=".view.LoginJogador" />
         <activity android:name=".view.ListarVendedores" />
         <activity android:name=".view.CadastroVendedor" />
         <activity android:name=".view.CadastroConcurso" />

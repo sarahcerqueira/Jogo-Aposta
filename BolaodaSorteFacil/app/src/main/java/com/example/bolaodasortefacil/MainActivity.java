@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        user = (EditText) findViewById(R.id.ed_username);
+        user = (EditText) findViewById(R.id.ed_telefone);
         senha = (EditText) findViewById(R.id.ed_senha);
         eLogin = (TextView) findViewById(R.id.tverro_login);
 
