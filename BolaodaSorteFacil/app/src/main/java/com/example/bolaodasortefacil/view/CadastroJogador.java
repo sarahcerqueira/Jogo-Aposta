@@ -1,8 +1,10 @@
-package com.example.bolaodasortefacil;
+package com.example.bolaodasortefacil.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.bolaodasortefacil.R;
 
 public class CadastroJogador extends AppCompatActivity {
 

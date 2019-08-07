@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.bolaodasortefacil.CadastroJogador;
 import com.example.bolaodasortefacil.R;
 import com.example.bolaodasortefacil.model.Servidor;
 
@@ -26,6 +26,11 @@ public class LoginJogador extends AppCompatActivity {
 
         this.telefone = (EditText) findViewById(R.id.ed_telefone);
         this.entrar = (Button) findViewById(R.id.bt_entrar);
+    }
+
+    public void entrarT(View view){
+        Intent aposta = new Intent(this, Aposta.class);
+        startActivity(aposta);
     }
 
     public void entrar(){
