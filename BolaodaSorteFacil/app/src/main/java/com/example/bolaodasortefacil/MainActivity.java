@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity  {
     private EditText senha;
     private String resultado;
     private TextView eLogin;
+    private boolean acabou;
 
 
     @Override
@@ -41,14 +42,14 @@ public class MainActivity extends AppCompatActivity  {
         if(!checkSenha() | !checkUsuario()){
             return;
         }
-
+        acabou = false;
         String u =  user.getText().toString();
         String s = senha.getText().toString();
 
         Login l = new Login();
         l.execute( s, u);
 
-        while(resultado==null){}
+        while(!acabou){}
 
         System.out.println(l.getStatus());
 
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity  {
                 e.printStackTrace();
             }
 
-
+            acabou = true;
             return resultado;
         }
 
