@@ -10,7 +10,8 @@ import java.io.IOException;
 
 public class Servidor {
 
-    private static final String ipServidor = "192.168.0.107";
+    //private static final String ipServidor = "192.168.0.107";
+    private static final String ipServidor = "221.1.1.106";
     private static final int porta = 5010;
     private Socket servidor ;
     private ObjectInputStream  ler;
@@ -20,15 +21,10 @@ public class Servidor {
     public Servidor(){}
 
 
-    public void abrirConexao(){
-        try {
+    public void abrirConexao() throws IOException {
             this.servidor = new Socket(this.ipServidor, this.porta);
             this.ler = new ObjectInputStream(this.servidor.getInputStream());
             this.escrever = new ObjectOutputStream(this.servidor.getOutputStream());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void fechaConexao() throws IOException{

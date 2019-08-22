@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.bolaodasortefacil.view.Aposta;
 import com.example.bolaodasortefacil.model.Servidor;
-import com.example.bolaodasortefacil.view.OpcaoAdm;
+import com.example.bolaodasortefacil.view.LoginJogador;
 
 import java.io.IOException;
 
@@ -37,34 +37,35 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-    public void login(View view){
+    public void login(View view) {
 
-        if(!checkSenha() | !checkUsuario()){
+        if (!checkSenha() | !checkUsuario()) {
             return;
         }
         acabou = false;
-        String u =  user.getText().toString();
+        String u = user.getText().toString();
         String s = senha.getText().toString();
 
         Login l = new Login();
-        l.execute( s, u);
+        l.execute(s, u);
 
-        while(!acabou){}
+        while (!acabou) {
+        }
 
         System.out.println(l.getStatus());
 
-        if(resultado.equals("erro")){
+        if (resultado.equals("erro")) {
+            eLogin.setText("Senha ou usuário incorreto");
             eLogin.setVisibility(View.VISIBLE);
 
-        } else if (resultado.equals("adm")){
+        } else if(resultado.equals("401")){
+            eLogin.setText("Falha ao se comunicar com o servidor. Verifique sua internet ou tente mais tarde");
+            eLogin.setVisibility(View.VISIBLE);
+
+        }   else{
             eLogin.setVisibility(View.INVISIBLE);
 
-            Intent opcao = new Intent(this, OpcaoAdm.class);
-            startActivity(opcao);
-        } else{
-            eLogin.setVisibility(View.INVISIBLE);
-
-            Intent aposta = new Intent(this, Aposta.class);
+            Intent aposta = new Intent(this, LoginJogador.class);
             startActivity(aposta);
         }
     }
@@ -109,19 +110,16 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         protected String doInBackground(String... voids) {
             servidor = new Servidor();
-            servidor.abrirConexao();
-
             try {
+                servidor.abrirConexao();
                 servidor.escreverParaServidor("login");
                 servidor.escreverParaServidor(voids[0]);
                 servidor.escreverParaServidor(voids[1]);
                 resultado = (String) servidor.lerDoServidor();
                 servidor.fechaConexao();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (IOException | ClassNotFoundException e) {
+                resultado = "401";
             }
 
             acabou = true;

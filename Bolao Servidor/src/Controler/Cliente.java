@@ -1,13 +1,10 @@
 package Controler;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.SQLException;
-import java.util.Scanner;
-
 import Model.TipoUsuario;
 
 public class Cliente implements Runnable{
@@ -16,123 +13,170 @@ public class Cliente implements Runnable{
 	private int maquina;		
 	private int idUsuario;			//Quando um cliente se conecta é necessário saber o usuário(adm ou vendedor);
 	private TipoUsuario tipo;		//O tipo de usuario vai definir se o cliente é um ADM, um jogador ou vendedor.
-	private Scanner carta;
-	private PrintWriter lapis;
-	private Administrador adm;
+	private  ObjectInputStream  ler;
+	private ObjectOutputStream escrever;
+	private Controler adm;
 	
 	public Cliente(Socket c) {
 		this.cliente = c;
-		this.adm = new Administrador("127.0.0.1",
-				"5432", "jogo", "postgres", "admin");
+		
+		try {
+			this.adm = new Controler("127.0.0.1",
+					"5432", "jogo", "postgres", "admin");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	public void run() {
-		/*
 		
 		try {
-			this.carta = new Scanner(this.cliente.getInputStream());
+			escrever = new ObjectOutputStream(this.cliente.getOutputStream());
+			ler = new ObjectInputStream(this.cliente.getInputStream());
 			
-		} catch (IOException e) {
-			System.out.println("Não foi possível ler do cliente!");
-			e.printStackTrace();
-			return;
-		}
-		
-		try {
-			lapis = new PrintWriter(this.cliente.getOutputStream());
-		} catch (IOException e) {
-			System.out.println("Não foi possível escrever para cliente!");
-			e.printStackTrace();
-			return;
-		}
-	
-		
-		int op = Integer.parseInt(this.lerDoCliente()); //recebe solicitação do cliente.
-		
-		if(op == 1){
-			try {
+			String op = (String) this.lerDoCliente();
+
+			if(op.equals("login")){
 				this.login();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+			} else if(op.equals("loginJogador")) {
+				this.loginJogador();
+				
+			} else if(op.equals("cadastroJogador")) {
+				this.cadastrarJogador();
 			}
-		}
 		
-		this.lapis.flush();
-		
-		if(lapis.)
-		
-		this.escreverParaCliente("ok");
-		this.lapis.flush();
-		
-		System.out.println("Escrevi pro cliente");
-		
-		try {
-			this.fecharConexao();
-		} catch (IOException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		*/
-		
-		try {
-			ObjectOutputStream ler = new ObjectOutputStream(this.cliente.getOutputStream());
-			ler.flush();
-			ler.writeObject("oi cliente");
-		
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
 		
 
 		
 	}
 	
+	
 	private void fecharConexao() throws IOException {
+		this.escrever.close();
+		this.ler.close();
 		this.cliente.close();
 	}
 	
-	private boolean temProxLinha() {
-		return this.carta.hasNextLine();
+	
+	private Object lerDoCliente() throws ClassNotFoundException, IOException {
+		return ler.readObject();
 	}
 	
-	private String lerDoCliente() {
-		if(this.temProxLinha()) {
-			return this.carta.nextLine();
+	private void escreverParaCliente(Object o) throws IOException {
+		this.escrever.flush();
+		this.escrever.writeObject(o);
+	}
+	
+	
+	private void login() {
+		String senha, username;
+		
+		try {
+			senha = (String) this.lerDoCliente();
+			username = (String) this.lerDoCliente();
+			
+			System.out.println(username + " "+ senha);
+			
+			String check = adm.login(username, senha);
+			System.out.println(check);
+			
+
+			if(!check.equals("erro")) {
+				
+				if(check.equals("t")) {
+					this.escreverParaCliente("adm");
+
+				} else {
+					
+					this.escreverParaCliente("vend");
+				
+				}
+				System.out.println("Login ok");
+
+			}else {
+				this.escreverParaCliente(check);
+				System.out.println("Erro no login");
+
 			}
-		
-		return null;
-	}
-	
-	private void escreverParaCliente(String mensagem) {
-		this.lapis.println(mensagem);
-	}
-	
-	
-	private void login() throws SQLException {
-		System.out.println("Solicitacao de login!");
-		
-		String username = this.lerDoCliente();
-		System.out.println("Usuario "+ username);
+			
+			this.fecharConexao();
 
-		String senha = this.lerDoCliente();
-		System.out.println("Senha "+ senha);
 
-		boolean s = this.adm.login(senha, username);
-		if(s) {
-			this.escreverParaCliente("ok");
-		}else {
-			this.escreverParaCliente("erro");
-
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		
+		
+	}
+	
+	public void loginJogador(){
+		try {
+			String telefone = (String) this.lerDoCliente();
+			
+			if(this.adm.loginJogador(telefone)) {
+				this.escreverParaCliente("true");
+			} else {
+				this.escreverParaCliente("cadastrar");				
+			}
+			
+			this.fecharConexao();
+			
+			
+		} catch (ClassNotFoundException | IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void cadastrarJogador() {
+		
+		String telefone;
+		
+		try {
+			
+			telefone = (String) this.lerDoCliente();
+			String nome = (String) this.lerDoCliente();
+			int i = this.adm.cadastrarJogador(nome, telefone);
+			
+			if(i==1) {
+				this.escreverParaCliente("ok");
+			} else {
+				this.escreverParaCliente("erro");
+			}
+			
+			this.fecharConexao();
+
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

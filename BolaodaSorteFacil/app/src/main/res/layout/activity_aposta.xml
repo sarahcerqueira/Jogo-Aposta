@@ -19,15 +19,12 @@
             android:layout_marginBottom="8dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/Titulo"
+            <ImageView
+                android:id="@+id/imageView3"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:background="@color/colorPrimaryDark"
-                android:fontFamily="@font/amaranth"
-                android:text="@string/bolao"
-                android:textColor="@android:color/background_light"
-                android:textSize="30sp" />
+                android:layout_height="109dp"
+                android:background="@android:color/background_light"
+                app:srcCompat="@mipmap/ic_trevo" />
 
             <Spinner
                 android:id="@+id/concurso"

@@ -8,20 +8,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_bolao_round"
+        android:icon="@mipmap/ic_trevo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_bolao"
+        android:roundIcon="@mipmap/ic_trevo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".model.Impressao"></activity>
-        <activity android:name=".view.CadastroJogador" />
-        <activity android:name=".view.ListarConcurso" />
+        <activity android:name=".CadastroJogador"></activity>
+        <activity android:name=".view.Impressao" />
         <activity android:name=".view.LoginJogador" />
-        <activity android:name=".view.ListarVendedores" />
-        <activity android:name=".view.CadastroVendedor" />
-        <activity android:name=".view.CadastroConcurso" />
-        <activity android:name=".view.OpcaoAdm" />
-        <activity android:name=".view.Gerencimento" />
         <activity android:name=".view.Aposta" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -9,10 +9,14 @@
     tools:context=".MainActivity">
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.82">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,21 +25,14 @@
             android:visibility="visible">
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="233dp"
-                app:srcCompat="@mipmap/ic_launcher_bolao" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="15dp"
+                android:id="@+id/imageView8"
+                android:layout_width="269dp"
+                android:layout_height="220dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="15dp"
-                android:fontFamily="@font/amaranth"
-                android:text="Login"
-                android:textAlignment="center"
-                android:textColor="#F3F1F7"
-                android:textSize="36sp" />
+                android:padding="15dp"
+                app:srcCompat="@drawable/cucapng" />
 
             <TextView
                 android:id="@+id/tverro_login"
@@ -51,7 +48,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="70dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginRight="70dp"
                 android:background="@android:color/background_light"
                 app:errorEnabled="true">
@@ -60,9 +56,10 @@
                     android:id="@+id/ed_telefone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Usuario"
-                    android:inputType="text"
-                    android:maxLength="30"
+                    android:layout_weight="1"
+                    android:hint="Usuário"
+                    android:inputType="textPersonName"
+                    android:maxLength="10"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Senha"
-                    android:inputType="textWebPassword"
+                    android:inputType="textPassword"
                     android:maxLength="10"
                     android:singleLine="true" />
 
@@ -89,13 +86,13 @@
 
             <Button
                 android:id="@+id/bt_entrar"
-                android:onClick="login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/estilo_botao"
                 android:backgroundTint="@color/colorAmarelo"
+                android:onClick="login"
                 android:text="Login" />
 
         </LinearLayout>
