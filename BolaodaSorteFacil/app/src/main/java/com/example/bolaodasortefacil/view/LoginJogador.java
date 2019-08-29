@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.bolaodasortefacil.CadastroJogador;
 import com.example.bolaodasortefacil.R;
+import com.example.bolaodasortefacil.model.Jogador;
 import com.example.bolaodasortefacil.model.Servidor;
 
 import java.io.IOException;
@@ -46,6 +47,7 @@ public class LoginJogador extends AppCompatActivity {
         }
 
         if (resultado.equals("cadastrar")) {
+            Jogador.setTelefone(telefone.getText().toString());
             Intent cadJogador = new Intent(this, CadastroJogador.class);
             startActivity(cadJogador);
 
@@ -55,7 +57,8 @@ public class LoginJogador extends AppCompatActivity {
 
         } else{
             eLogin.setVisibility(View.INVISIBLE);
-            Intent aposta = new Intent(this, Aposta.class);
+            Jogador.setTelefone(telefone.getText().toString());
+            Intent aposta = new Intent(this, ApostaActivity.class);
             startActivity(aposta);
         }
 

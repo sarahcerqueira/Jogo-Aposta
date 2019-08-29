@@ -100,6 +100,7 @@
     <string name="cad_concurso">Cadastro de Concurso</string>
     <string name="cad_vendedor">Cadastro de Vendedor</string>
     <string name="erro_login">Senha ou usuário incorreto</string>
+    <string name="concurso">Selecione o concurso:</string>
 
 
 </resources>

@@ -9,8 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.bolaodasortefacil.model.Jogador;
 import com.example.bolaodasortefacil.model.Servidor;
-import com.example.bolaodasortefacil.view.Aposta;
+import com.example.bolaodasortefacil.view.ApostaActivity;
 
 import java.io.IOException;
 
@@ -29,6 +30,7 @@ public class CadastroJogador extends AppCompatActivity {
         telefone = (EditText)findViewById(R.id.ed_telefone);
         nome = (EditText)findViewById(R.id.ed_nome);
         eCadastro = (TextView) findViewById(R.id.tverro_CadastroJogador);
+        telefone.setText(Jogador.getTelefone());
 
     }
 
@@ -52,8 +54,8 @@ public class CadastroJogador extends AppCompatActivity {
 
         } else{
             eCadastro.setVisibility(View.INVISIBLE);
-
-            Intent aposta = new Intent(this, Aposta.class);
+            Jogador.setTelefone(telefone.getText().toString());
+            Intent aposta = new Intent(this, ApostaActivity.class);
             startActivity(aposta);
         }
 

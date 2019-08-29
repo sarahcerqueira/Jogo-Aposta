@@ -13,10 +13,11 @@
         android:roundIcon="@mipmap/ic_trevo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CadastroJogador"></activity>
+        <activity android:name=".view.DeviceListActivity"></activity>
+        <activity android:name=".CadastroJogador" />
         <activity android:name=".view.Impressao" />
         <activity android:name=".view.LoginJogador" />
-        <activity android:name=".view.Aposta" />
+        <activity android:name=".view.ApostaActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,8 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bolaodasortefacil.view.Aposta;
 import com.example.bolaodasortefacil.model.Servidor;
+import com.example.bolaodasortefacil.model.Vendedor;
 import com.example.bolaodasortefacil.view.LoginJogador;
 
 import java.io.IOException;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity  {
 
         }   else{
             eLogin.setVisibility(View.INVISIBLE);
-
+            Vendedor.setVendedor(user.getText().toString());
             Intent aposta = new Intent(this, LoginJogador.class);
             startActivity(aposta);
         }

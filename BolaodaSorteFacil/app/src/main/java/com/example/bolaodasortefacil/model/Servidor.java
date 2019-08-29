@@ -5,6 +5,9 @@ import java.net.Socket;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import com.example.bolaodasortefacil.model.Concursos;
+
 
 
 
@@ -43,6 +46,9 @@ public class Servidor {
         return ler.readObject();
     }
 
+    public ObjectInputStream getLer(){
+        return this.ler;
+    }
 
 
 
