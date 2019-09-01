@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
 import com.example.bolaodasortefacil.model.*;
+import java.text.SimpleDateFormat;
+
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -55,10 +57,8 @@ public class Impressao extends AppCompatActivity implements Runnable {
             .fromString("00001101-0000-1000-8000-00805F9B34FB");
     private ProgressDialog mBluetoothConnectProgressDialog;
     private BluetoothSocket mBluetoothSocket;
-    BluetoothDevice mBluetoothDevice;
-
-
-
+    private BluetoothDevice mBluetoothDevice;
+    private String dados;
 
 
     @Override
@@ -72,6 +72,9 @@ public class Impressao extends AppCompatActivity implements Runnable {
         this.imprimir = (Button) findViewById(R.id.bt_imprimir);
         jogador = (Jogador)getIntent().getExtras().getSerializable("jogador");
         this.statuImpressora.setText("Disconectado");
+        getDados();
+
+        this.textoImpressao.setText(dados);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -80,6 +83,7 @@ public class Impressao extends AppCompatActivity implements Runnable {
             public void onClick(View mView) {
                 if (conectar.getText().equals("Conectar")) {
                     mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
                     if (mBluetoothAdapter == null) {
                         Toast.makeText(Impressao.this, "Message1", Toast.LENGTH_SHORT).show();
                     } else {
@@ -90,6 +94,7 @@ public class Impressao extends AppCompatActivity implements Runnable {
                                     REQUEST_ENABLE_BT);
                         } else {
                             ListPairedDevices();
+
                             Intent connectIntent = new Intent(Impressao.this,
                                     DeviceListActivity.class);
                             startActivityForResult(connectIntent,
@@ -128,52 +133,7 @@ public class Impressao extends AppCompatActivity implements Runnable {
             public void run() {
                 try {
                     OutputStream os = mBluetoothSocket.getOutputStream();
-
-                    String mensagem = "\n      BOLÃO DA SORTE FÁCIL \n\n";
-                    os.write(mensagem.getBytes());
-
-                    Date data = new Date();
-                    os.write(data.toString().getBytes());
-
-                    ArrayList<Aposta> aposta = jogador.getAposta();
-                    int aux=0, tam = aposta.size();
-                    float   total =0;
-                    Aposta a = null;
-
-                    while(aux<tam) {
-                        a = aposta.get(aux);
-                        int[] d = a.getDezenas();
-                        mensagem = "\n Concurso: " + a.getConcurso()+ "\n";
-                        os.write(mensagem.getBytes());
-
-
-                        mensagem = " Dezena:\n" + d[0] +" "+ d[1] +" "+ d[2] +" "+ d[3]+" "+ d[4]+" "+ d[5]+
-                                " "+ d[6]+ " " + d[7]+ " "+ d[8]+ " "+ d[9] +"\n\n";
-                        os.write(mensagem.getBytes());
-
-                        mensagem = " Premio: " + a.getPremio()+ "\n";
-                        os.write(mensagem.getBytes());
-
-                        mensagem = " Valor: R$" + Float.toString(a.getValor())+ "\n";
-                        total = total + a.getValor();
-                        os.write(mensagem.getBytes());
-
-                        aux = aux + 1;
-
-                        if(aux==tam){
-                            mensagem = " Total: R$" + Float.toString(total)+ "\n\n";
-                            os.write(mensagem.getBytes());
-
-                            mensagem = " Vendedor: " + a.getVendedor() +"\n";
-                            os.write(mensagem.getBytes());
-
-                            mensagem = " Id do usuário: " + a.getTelefoneJogador()+ "\n\n\n";
-                            os.write(mensagem.getBytes());
-                        }
-
-                    }
-
-
+                    os.write(dados.getBytes());
 
                 } catch (Exception e) {
                     Log.e("PrintActivity", "Exe ", e);
@@ -213,7 +173,7 @@ public class Impressao extends AppCompatActivity implements Runnable {
             }
             else{
                 statuImpressora.setText("");
-                statuImpressora.setText("Disconnected");
+                statuImpressora.setText("Disconectado");
                 statuImpressora.setTextColor(Color.rgb(199, 59, 59));
                 imprimir.setEnabled(false);
                 /*mDisc.setEnabled(false);
@@ -221,7 +181,7 @@ public class Impressao extends AppCompatActivity implements Runnable {
                 //mPrint.setBackgroundColor(Color.rgb(161, 161, 161));
                 conectar.setBackgroundColor(Color.rgb(0,0,0));
                 conectar.setEnabled(true);
-                conectar.setText("Disconnect");
+                conectar.setText("Disconectado");
             }
         }
 
@@ -318,11 +278,11 @@ public class Impressao extends AppCompatActivity implements Runnable {
 
             // Snackbar snackbar = Snackbar.make(layout, "Bluetooth Printer is Connected!", Snackbar.LENGTH_LONG);
             // snackbar.show();
-            textoImpressao.setText("");
-            textoImpressao.setText("Connected");
-            textoImpressao.setTextColor(Color.rgb(97, 170, 74));
+            statuImpressora.setText("");
+            statuImpressora.setText("Conectado");
+            statuImpressora.setTextColor(Color.rgb(97, 170, 74));
             imprimir.setEnabled(true);
-            conectar.setText("Disconnect");
+            conectar.setText("Disconectar");
 
         }
     };
@@ -345,6 +305,45 @@ public class Impressao extends AppCompatActivity implements Runnable {
         return buffer.array();
     }
 
+    private void getDados() {
 
+        dados = "\n      BOLAO DA SORTE FACIL \n\n";
 
-}
+        Date data = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy  HH:mm:ss");
+        dados = dados + " "+ format.format(data);
+
+        ArrayList<Aposta> aposta = jogador.getAposta();
+        int aux = 0, tam = aposta.size();
+        float total = 0;
+        Aposta a = null;
+
+        while (aux < tam) {
+            a = aposta.get(aux);
+            int[] d = a.getDezenas();
+            dados = dados + "\n Concurso: " + a.getConcurso() + "\n";
+
+            dados = dados + " Dezena:\n" +" " +d[0] + " " + d[1] + " " + d[2] + " " + d[3] + " " + d[4] + " " + d[5] +
+                    " " + d[6] + " " + d[7] + " " + d[8] + " " + d[9] + "\n\n";
+
+            dados = dados + " Premio: " + a.getPremio() + "\n";
+
+            dados = dados + " Valor: R$" + Float.toString(a.getValor()) + "0\n";
+
+            total = total + a.getValor();
+
+            aux = aux + 1;
+
+            if (aux == tam) {
+                dados = dados + "\n Total: R$" + Float.toString(total) + "0\n\n";
+
+                dados = dados + " Vendedor: " + a.getVendedor() + "\n";
+
+                dados = dados + " Id do usuario: " + a.getTelefoneJogador() + "\n\n\n";
+            }
+
+        }
+
+    }
+
+    }

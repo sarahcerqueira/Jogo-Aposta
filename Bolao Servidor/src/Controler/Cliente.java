@@ -4,7 +4,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import com.example.bolaodasortefacil.model.Jogador;
+
 import Model.TipoUsuario;
 
 public class Cliente implements Runnable{
@@ -50,7 +58,18 @@ public class Cliente implements Runnable{
 				
 			} else if(op.equals("cadastroJogador")) {
 				this.cadastrarJogador();
+				
+			} else if(op.equals("concursosAtivos")) {
+				this.getConcursosAtivos();
+				
+			} else if(op.equals("cadastrarConcurso")) {
+				cadastrarConcurso();
+				
+			} else if (op.equals("Apostar")) {
+				apostar();
 			}
+				
+				
 		
 		} catch (IOException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -62,6 +81,54 @@ public class Cliente implements Runnable{
 	}
 	
 	
+	private void apostar() {
+		
+		try {
+			
+			Jogador jogador = (Jogador) this.lerDoCliente();
+			
+			adm.
+			
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	private void cadastrarConcurso() {
+		
+		
+		
+	}
+
+	private void getConcursosAtivos() {
+		
+		try {
+			this.escreverParaCliente(adm.getConcursosAtivos());
+			this.fecharConexao();
+
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+
 	private void fecharConexao() throws IOException {
 		this.escrever.close();
 		this.ler.close();

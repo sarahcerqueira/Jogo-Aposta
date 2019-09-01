@@ -102,8 +102,12 @@ public class ApostaActivity extends AppCompatActivity {
 
     public void finalizar(View view){
         if(this.criaApostar()){
+            ApostaS serv = new ApostaS();
+            resultado = null;
+            serv.execute();
 
-            // fazer aposta no servidor aqui
+            while(resultado==null){}
+
 
         Intent imprimir = new Intent(this, Impressao.class);
         imprimir.putExtra("jogador", jogador);
@@ -242,6 +246,36 @@ public class ApostaActivity extends AppCompatActivity {
                 concursos = (ArrayList<Concursos>) servidor.getLer().readObject();
                 servidor.fechaConexao();
                 resultado = "ok";
+
+            } catch (IOException | ClassNotFoundException e) {
+                resultado = "401";
+            }
+
+
+            return null;
+        }
+
+
+    }
+
+
+    private class ApostaS extends AsyncTask<String, Void, Void> {
+
+        private Servidor servidor;
+
+        public ApostaS (){}
+
+
+        @Override
+        protected Void doInBackground(String... voids) {
+            servidor = new Servidor();
+
+            try {
+                servidor.abrirConexao();
+                servidor.escreverParaServidor("Apostar");
+                servidor.escreverParaServidor(jogador);
+                resultado = (String)servidor.lerDoServidor();
+                servidor.fechaConexao();
 
             } catch (IOException | ClassNotFoundException e) {
                 resultado = "401";

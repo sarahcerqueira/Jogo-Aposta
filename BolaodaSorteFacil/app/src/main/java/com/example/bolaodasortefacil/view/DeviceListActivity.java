@@ -43,6 +43,7 @@ public class DeviceListActivity extends Activity  {
 
         if (mPairedDevices.size() > 0) {
             findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
+
             for (BluetoothDevice mDevice : mPairedDevices) {
                 mPairedDevicesArrayAdapter.add(mDevice.getName() + "\n" + mDevice.getAddress());
             }

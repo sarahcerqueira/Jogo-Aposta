@@ -2,7 +2,12 @@ package Controler;
 
 import java.io.IOException;
 import java.net.*;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 import Model.ConexaoPostgres;
@@ -13,42 +18,38 @@ public class Main {
 
 	public static void main(String[] args)  {
 		
-		// TODO Auto-generated method stub
-		
+		/*
 		Controler adm;
-		try {
-			adm = new Controler("127.0.0.1",
-						"5432", "jogo", "postgres", "admin");
-			
-			int i = 0;
-			
-			//i = adm.cadastrarUsuario("Matheus", "matheus", "1234", true);
-			//i = adm.removerUsuario(1);
-			//i = adm.cadastrarJogador("Matinho", "9999999999999");
-			//i= adm.removerJogador("9999999999999");
-			//System.out.println(adm.login("1234", "esa"));
-			i = adm.cadastrarConcurso(2, "2019-08-21", "17:00:00", "2019-08-24",  "17:00:00");
-			System.out.print(i+"\n");
-
-			
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-			
 		
+			try {
+				adm = new Controler("127.0.0.1",
+							"5432", "jogo", "postgres", "admin");
+				
+				
+				int i = 0;
+				
+				//i = adm.cadastrarUsuario("Matheus", "matheus", "1234", true);
+				//i = adm.removerUsuario(1);
+				//i = adm.cadastrarJogador("Matinho", "9999999999999");
+				//i= adm.removerJogador("9999999999999");
+				//System.out.println(adm.login("1234", "esa"));
+				i = adm.cadastrarConcurso(10, "2019-08-30", "18:00:00", "2019-09-02",  "17:00:00");
+				
+				
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-	
-			
-			
+				*/
 	
 		
 		//**************************************************************************************
 		
-		/*
+		
 		
 		//Declaração de váriaveis
 		int porta = 5010;		
@@ -89,8 +90,6 @@ public class Main {
 			
 		}
 			
-		
-		*/
 		
 		
 		

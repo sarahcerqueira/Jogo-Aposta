@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class BancoDados {
 	
 	private ConexaoPostgres bancoDados;
-
+	private int idDezena;
 	
 	public BancoDados(String local, String porta,
 		    String banco, String usuario, String senha) {
@@ -87,12 +87,17 @@ public class BancoDados {
 	}
 	
 	public ResultSet getConcurso() throws SQLException {
-		return this.bancoDados.buscar("SELECT id, datafim, horafim FROM concurso ORDER BY datafim ASC");
+		return this.bancoDados.buscar("SELECT * FROM concurso ORDER BY datafim ASC");
 
 	}
 	
 	
-	public void cadastrarAposta() {
+	public void cadastrarAposta(int concurso, String jogador, String usuario, String data, float preco) throws SQLException {
+		
+		
+		this.bancoDados.executarSql("INSERT INTO aposta(concurso, jogador, usuario, data, preco)VALUES( '"
+		+concurso+"','"+ jogador+ "','" +usuario+"','"+ data+"','" +"','"+ preco +"')");
+
 		
 	}
 	
