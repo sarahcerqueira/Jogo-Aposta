@@ -28,7 +28,7 @@ public class ApostaActivity extends AppCompatActivity  {
     private TextView numero_duplicado;
     private Spinner sp_concursos;
     private Spinner premio;
-    private EditText valor;
+    private TextView valor;
     private EditText d1;
     private EditText d2;
     private EditText d3;
@@ -54,7 +54,7 @@ public class ApostaActivity extends AppCompatActivity  {
         sp_concursos = (Spinner) findViewById(R.id.sp_concursos);
         numero_duplicado = (TextView) findViewById(R.id.tv_eaposta);
         premio = (Spinner)   findViewById(R.id.sp_premio);
-        valor = (EditText)  findViewById(R.id.valor);
+        valor = (TextView)  findViewById(R.id.valor);
         d1 = (EditText) findViewById(R.id.d1);
         d2 = (EditText) findViewById(R.id.d2);
         d3 = (EditText) findViewById(R.id.d3);
@@ -66,6 +66,7 @@ public class ApostaActivity extends AppCompatActivity  {
         d9 = (EditText) findViewById(R.id.d9);
         d10 = (EditText) findViewById(R.id.d10);
         jogador = new Jogador();
+
 
         String [] premios = {"1º ao 5º"};
         ArrayAdapter<String>  adapter_premios = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, premios);
@@ -127,12 +128,9 @@ public class ApostaActivity extends AppCompatActivity  {
 
         Date data = new Date();
 
-        if(checkDezenaVazia() && checkDuplicidadeDezenas() && checkValor()){
-           String a=  valor.getText().toString();
-           a =  a.replace("R$", "");
-           a = a.replace(",", ".");
+        if(checkDezenaVazia() && checkDuplicidadeDezenas()){
 
-            jogador.apostar(Integer.toString(this.getIdConcurso(sp_concursos.getSelectedItem().toString())),Vendedor.getVendedor(), Float.parseFloat(a),premio.getSelectedItem().toString(), data, Integer.parseInt(d1.getText().toString()),
+            jogador.apostar(Integer.toString(this.getIdConcurso(sp_concursos.getSelectedItem().toString())),Vendedor.getVendedor(), Float.parseFloat("10.00"),premio.getSelectedItem().toString(), data, Integer.parseInt(d1.getText().toString()),
                     Integer.parseInt(d2.getText().toString()), Integer.parseInt(d3.getText().toString()), Integer.parseInt(d4.getText().toString()),
                     Integer.parseInt(d5.getText().toString()), Integer.parseInt(d6.getText().toString()), Integer.parseInt(d7.getText().toString()),
                     Integer.parseInt(d8.getText().toString()), Integer.parseInt(d9.getText().toString()), Integer.parseInt(d10.getText().toString()));
@@ -140,19 +138,6 @@ public class ApostaActivity extends AppCompatActivity  {
         }
 
         return false;
-    }
-
-    private boolean checkValor(){
-
-        if(valor.getText().toString().isEmpty()){
-            valor.setError("Informe o valor da aposta");
-            return false;
-
-        } else{
-            valor.setError(null);
-        }
-
-        return true;
     }
 
     private boolean checkDezenaVazia(){
@@ -210,7 +195,7 @@ public class ApostaActivity extends AppCompatActivity  {
 
     private int getIdConcurso(String concurso){
 
-        int tam, aux=1;
+        int tam, aux=0;
         tam = concursos.size();
         ArrayList<String> al = new ArrayList<String>();
         Concursos c;
@@ -222,6 +207,7 @@ public class ApostaActivity extends AppCompatActivity  {
             if(concurso.equals(c.getId() + " " + c.getData_final() + " - " + c.getHora_final())){
                 return Integer.parseInt(c.getId());
             }
+
 
             aux = aux +1;
         }
@@ -247,7 +233,6 @@ public class ApostaActivity extends AppCompatActivity  {
         d8.setText("");
         d9.setText("");
         d10.setText("");
-        valor.setText("");
     }
 
     @Override

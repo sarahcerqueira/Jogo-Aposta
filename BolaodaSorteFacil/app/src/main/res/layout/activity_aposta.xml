@@ -347,17 +347,13 @@
                 android:text="@string/valor"
                 android:textSize="24sp" />
 
-            <faranjit.currency.edittext.CurrencyEditText
+            <TextView
                 android:id="@+id/valor"
-                android:layout_width="141dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="R$ 0,00"
-                android:inputType="numberDecimal"
-                android:textColor="@android:color/black"
-                app:groupDivider="."
-                app:locale="pt_BR"
-                app:monetaryDivider=","
-                app:showSymbol="true" />
+                android:text="R$ 10,00"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
 
             <TableLayout
                 android:layout_width="wrap_content"
