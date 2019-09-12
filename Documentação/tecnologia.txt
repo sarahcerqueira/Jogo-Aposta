@@ -1,0 +1,9 @@
+Eclips 2019
+
+
+e(fx)clipse
+https://download.eclipse.org/efxclipse/updates-released/3.6.0/site/
+
+JavaFX Scene Builder
+http://www.oracle.com/technetwork/java/javase/downloads/javafxscenebuilder-1x-archive-2199384.html
+

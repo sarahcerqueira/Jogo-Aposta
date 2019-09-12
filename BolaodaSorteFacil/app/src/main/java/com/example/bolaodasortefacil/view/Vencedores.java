@@ -23,7 +23,10 @@ public class Vencedores extends AppCompatActivity {
     private String resultado;
     private ListView win;
     private TextView tv_win;
+    private TextView tv_dezena;
+    private ArrayList<Integer> dezena;
     private TextView texto;
+
 
 
     @Override
@@ -35,6 +38,7 @@ public class Vencedores extends AppCompatActivity {
         tv_win = (TextView) findViewById(R.id.tv_win);
 
         texto = (TextView) findViewById(R.id.texto);
+        tv_dezena = (TextView) findViewById(R.id.dezena_concurso);
 
 
         tv_win.setText("Concurso: " + id);
@@ -44,9 +48,15 @@ public class Vencedores extends AppCompatActivity {
         resultado = null;
         s.execute();
 
-        while(aposta == null && resultado == null){}
+        while(aposta == null || resultado == null || dezena == null){}
+
+
 
         if(aposta != null){
+
+            tv_dezena.setText(dezena.get(0) + " " + dezena.get(1) + " "+ dezena.get(2)+" "+ dezena.get(3)+ " "+ dezena.get(4)+" "+ dezena.get(5)+
+                    " "+ dezena.get(6)+" "+ dezena.get(7)+ " " + dezena.get(8)+ " "+ dezena.get(9));
+
             int aux =0, tam = aposta.size();
             List<String> all = new ArrayList<String>() ;
             resultado = "";
@@ -56,11 +66,11 @@ public class Vencedores extends AppCompatActivity {
 
                 if(a.getVendedor().equals(Vendedor.getVendedor())) {
                     resultado = resultado + ("\n\n Telefone: " + a.getTelefoneJogador() + "\n Pontos: " + a.getPontos() +
-                            "\n Dezenas jogadas:\n"+a.getDezenas(0) + " " + a.getDezenas(1) + " " + a.getDezenas(2) + " " + a.getDezenas(3) + " " + a.getDezenas(4) + " " + a.getDezenas(5) +
+                            "\n Dezenas jogadas: "+a.getDezenas(0) + " " + a.getDezenas(1) + " " + a.getDezenas(2) + " " + a.getDezenas(3) + " " + a.getDezenas(4) + " " + a.getDezenas(5) +
                             " " + a.getDezenas(6) + " " + a.getDezenas(7) + " " + a.getDezenas(8) + " " + a.getDezenas(9) + "\n\n" );
                 } else {
                     resultado = resultado + ("\n\n Pontos: " + a.getPontos() +
-                                "\n Dezenas jogadas:\n"+a.getDezenas(0) + " " + a.getDezenas(1) + " " + a.getDezenas(2) + " " + a.getDezenas(3) + " " + a.getDezenas(4) + " " + a.getDezenas(5) +
+                                "\n Dezenas jogadas: "+a.getDezenas(0) + " " + a.getDezenas(1) + " " + a.getDezenas(2) + " " + a.getDezenas(3) + " " + a.getDezenas(4) + " " + a.getDezenas(5) +
                                 " " + a.getDezenas(6) + " " + a.getDezenas(7) + " " + a.getDezenas(8) + " " + a.getDezenas(9) + "\n\n" );
 
                 }
@@ -93,6 +103,7 @@ public class Vencedores extends AppCompatActivity {
                 servidor.escreverParaServidor("win");
                 servidor.escreverParaServidor(id);
                 aposta = (ArrayList<Aposta>)servidor.lerDoServidor();
+                dezena = (ArrayList<Integer>) servidor.lerDoServidor();
                 resultado = "ok";
 
             } catch (IOException | ClassNotFoundException e) {
