@@ -86,17 +86,25 @@ public class Cliente implements Runnable{
 		try {
 			
 			Jogador jogador = (Jogador) this.lerDoCliente();
-			
-			adm.
-			
+			adm.apostar(jogador);
+			this.escreverParaCliente("ok");
+			return;
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+
+		
 		
 		
 	}

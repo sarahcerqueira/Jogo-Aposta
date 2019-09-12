@@ -309,22 +309,25 @@ public class Impressao extends AppCompatActivity implements Runnable {
 
         dados = "\n      BOLAO DA SORTE FACIL \n\n";
 
-        Date data = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy  HH:mm:ss");
-        dados = dados + " "+ format.format(data);
-
         ArrayList<Aposta> aposta = jogador.getAposta();
         int aux = 0, tam = aposta.size();
         float total = 0;
         Aposta a = null;
 
         while (aux < tam) {
+
             a = aposta.get(aux);
-            int[] d = a.getDezenas();
+
+            if(aux == 0){
+                Date data = a.getdata();
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy  HH:mm:ss");
+                dados = dados + " "+ format.format(data);
+            }
+
             dados = dados + "\n Concurso: " + a.getConcurso() + "\n";
 
-            dados = dados + " Dezena:\n" +" " +d[0] + " " + d[1] + " " + d[2] + " " + d[3] + " " + d[4] + " " + d[5] +
-                    " " + d[6] + " " + d[7] + " " + d[8] + " " + d[9] + "\n\n";
+            dados = dados + " Dezena:\n" +" " +a.getDezenas(0) + " " + a.getDezenas(1) + " " + a.getDezenas(2) + " " + a.getDezenas(3) + " " + a.getDezenas(4) + " " + a.getDezenas(5) +
+                    " " + a.getDezenas(6) + " " + a.getDezenas(7) + " " + a.getDezenas(8) + " " + a.getDezenas(9) + "\n\n";
 
             dados = dados + " Premio: " + a.getPremio() + "\n";
 
@@ -343,6 +346,13 @@ public class Impressao extends AppCompatActivity implements Runnable {
             }
 
         }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent aposta = new Intent(this, LoginJogador.class);
+        startActivity(aposta);
 
     }
 

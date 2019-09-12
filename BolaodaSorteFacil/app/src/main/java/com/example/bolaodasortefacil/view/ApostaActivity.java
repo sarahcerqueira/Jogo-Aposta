@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import java.util.Date;
 
 import com.example.bolaodasortefacil.R;
 import com.example.bolaodasortefacil.model.Concursos;
@@ -22,7 +23,7 @@ import com.example.bolaodasortefacil.model.Jogador;
 import com.example.bolaodasortefacil.model.Vendedor;
 
 
-public class ApostaActivity extends AppCompatActivity {
+public class ApostaActivity extends AppCompatActivity  {
 
     private TextView numero_duplicado;
     private Spinner sp_concursos;
@@ -80,7 +81,7 @@ public class ApostaActivity extends AppCompatActivity {
 
         } else if(resultado.equals("ok")){
 
-            int tam, aux=1;
+            int tam, aux=0;
             tam = concursos.size();
             ArrayList<String> al = new ArrayList<String>();
             Concursos c;
@@ -124,12 +125,14 @@ public class ApostaActivity extends AppCompatActivity {
 
     public boolean criaApostar(){
 
+        Date data = new Date();
+
         if(checkDezenaVazia() && checkDuplicidadeDezenas() && checkValor()){
            String a=  valor.getText().toString();
            a =  a.replace("R$", "");
            a = a.replace(",", ".");
 
-            jogador.apostar(sp_concursos.getSelectedItem().toString(),Vendedor.getVendedor(), Float.parseFloat(a),premio.getSelectedItem().toString(), Integer.parseInt(d1.getText().toString()),
+            jogador.apostar(Integer.toString(this.getIdConcurso(sp_concursos.getSelectedItem().toString())),Vendedor.getVendedor(), Float.parseFloat(a),premio.getSelectedItem().toString(), data, Integer.parseInt(d1.getText().toString()),
                     Integer.parseInt(d2.getText().toString()), Integer.parseInt(d3.getText().toString()), Integer.parseInt(d4.getText().toString()),
                     Integer.parseInt(d5.getText().toString()), Integer.parseInt(d6.getText().toString()), Integer.parseInt(d7.getText().toString()),
                     Integer.parseInt(d8.getText().toString()), Integer.parseInt(d9.getText().toString()), Integer.parseInt(d10.getText().toString()));
@@ -205,6 +208,26 @@ public class ApostaActivity extends AppCompatActivity {
         return true;
     }
 
+    private int getIdConcurso(String concurso){
+
+        int tam, aux=1;
+        tam = concursos.size();
+        ArrayList<String> al = new ArrayList<String>();
+        Concursos c;
+
+        while(aux< tam){
+
+            c = this.concursos.get(aux);
+
+            if(concurso.equals(c.getId() + " " + c.getData_final() + " - " + c.getHora_final())){
+                return Integer.parseInt(c.getId());
+            }
+
+            aux = aux +1;
+        }
+
+        return 0;
+    }
 
 
     public void limpar(View view) {
@@ -224,8 +247,16 @@ public class ApostaActivity extends AppCompatActivity {
         d8.setText("");
         d9.setText("");
         d10.setText("");
-
         valor.setText("");
+    }
+
+    @Override
+    public void onBackPressed() {
+        ArrayList apostas = jogador.getAposta();
+        apostas.clear();
+
+        Intent aposta = new Intent(this, LoginJogador.class);
+        startActivity(aposta);
     }
 
 

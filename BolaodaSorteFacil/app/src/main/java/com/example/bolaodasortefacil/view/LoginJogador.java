@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.bolaodasortefacil.CadastroJogador;
+import com.example.bolaodasortefacil.MainActivity;
 import com.example.bolaodasortefacil.R;
 import com.example.bolaodasortefacil.model.Jogador;
 import com.example.bolaodasortefacil.model.Servidor;
@@ -31,6 +32,8 @@ public class LoginJogador extends AppCompatActivity {
         this.telefone = (EditText) findViewById(R.id.ed_telefone);
         this.entrar = (Button) findViewById(R.id.bt_entrar);
         eLogin = (TextView) findViewById(R.id.tv_eLoginJogador);
+
+        this.telefone.setText(null);
 
     }
 
@@ -82,6 +85,13 @@ public class LoginJogador extends AppCompatActivity {
 
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent main = new Intent(this, MainActivity.class);
+        startActivity(main);
+    }
+
 
     private class Entrar extends AsyncTask<String, Void, Void> {
 

@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.example.bolaodasortefacil.model.Aposta;
 import com.example.bolaodasortefacil.model.Concursos;
+import com.example.bolaodasortefacil.model.Jogador;
 
 import Model.ConexaoPostgres;
 import Model.BancoDados;
@@ -90,8 +92,6 @@ public class Controler {
 			dataf = r.getString("datafim");
 			horaf = r.getString("horafim");
 			
-			System.out.println("Concurso " + datai + horai + " - " + dataf + horaf );
-
 			data1 = new Date(format.parse(datai.replaceAll("-", "")).getTime());
 			data2 = new Date(format.parse(dataf.replaceAll("-", "")).getTime());
 			dataf = d.format(data2);
@@ -159,8 +159,16 @@ public class Controler {
 		
 	}
 	
-	public void apostar(){
+	public void apostar(Jogador j) throws NumberFormatException, SQLException{
+		ArrayList<Aposta> lista = j.getAposta();
 		
+		for(Aposta a : lista) {
+			int [] dezena = a.getDezenas();
+		
+			banco.cadastrarAposta(Integer.parseInt(a.getConcurso()), a.getTelefoneJogador(), a.getVendedor(), 
+					a.getdata().toString(), a.getValor(), dezena[0],  dezena[1],  dezena[2], dezena[3],
+					 dezena[4],  dezena[5],  dezena[6],  dezena[7],  dezena[8],  dezena[9]);
+		}
 	}
 	
 

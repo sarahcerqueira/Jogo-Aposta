@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_trevo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.DeviceListActivity"></activity>
+        <activity android:name=".view.Vencedores"></activity>
+        <activity android:name=".Gerenciamento" />
+        <activity android:name=".view.DeviceListActivity" />
         <activity android:name=".CadastroJogador" />
         <activity android:name=".view.Impressao" />
         <activity android:name=".view.LoginJogador" />

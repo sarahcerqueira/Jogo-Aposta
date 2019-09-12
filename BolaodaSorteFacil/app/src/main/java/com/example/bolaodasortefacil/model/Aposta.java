@@ -1,35 +1,41 @@
 package com.example.bolaodasortefacil.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
-public class Aposta implements Serializable {
+public class Aposta implements Serializable, Comparable<Aposta> {
 
     private String concurso;
     private String vendedor;
     private String telefoneJogador;
+    private Date data;
     private float valor;
     private String premio;
-    private int[] dezenas;
+    private Dezena[] dezenas;
+    private int pontos;
 
-    public  Aposta(String concurso, String v, String tf, float valor, String premio, int d1, int d2, int d3, int d4, int d5,
+    public  Aposta(String concurso, String v, String tf, float valor, String premio, Date data, int d1, int d2, int d3, int d4, int d5,
                    int d6, int d7, int d8, int d9, int d10){
 
+        dezenas = new Dezena[10];
         this.concurso = concurso;
         this.vendedor = v;
         this.premio = premio;
         this.telefoneJogador = tf;
         this.valor = valor;
-        this.dezenas = new int[10];
-        this.dezenas[0] = d1;
-        this.dezenas[1] = d2;
-        this.dezenas[2] = d3;
-        this.dezenas[3] = d4;
-        this.dezenas[4] = d5;
-        this.dezenas[5] = d6;
-        this.dezenas[6] = d7;
-        this.dezenas[7] = d8;
-        this.dezenas[8] = d9;
-        this.dezenas[9] = d10;
+        this.data = data;
+        dezenas[0] = new Dezena(d1);
+        dezenas[1] = new Dezena(d2);
+        dezenas[2] = new Dezena(d3);
+        dezenas[3] = new Dezena(d4);
+        dezenas[4] = new Dezena(d5);
+        dezenas[5] = new Dezena(d6);
+        dezenas[6] = new Dezena(d7);
+        dezenas[7] = new Dezena(d8);
+        dezenas[8] = new Dezena(d9);
+        dezenas[9] = new Dezena(d10);
+
+
 
 
     }
@@ -67,13 +73,34 @@ public class Aposta implements Serializable {
         this.premio = premio;
     }
 
-    public int[] getDezenas() {
+    public Date getData() {
+        return data;
+    }
+
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+
+    public Dezena[] getDezenas() {
         return dezenas;
     }
 
-    public void setDezenas(int[] dezenas) {
+    public int getDezenas(int i) {
+        return dezenas[i].getDezena();
+    }
+
+    public void setAcertou(boolean b, int i) {
+        dezenas[i].setAcertou(b);
+    }
+
+
+
+    public void setDezenas(Dezena[] dezenas) {
         this.dezenas = dezenas;
     }
+
 
     public String getConcurso() {
         return concurso;
@@ -83,5 +110,33 @@ public class Aposta implements Serializable {
         this.concurso = concurso;
     }
 
+    public Date getdata() {
+        return data;
+    }
+
+
+
+    public int getPontos() {
+        return pontos;
+    }
+
+
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
+    }
+
+
+    @Override
+    public int compareTo(Aposta aposta) {
+
+        if (this.pontos > aposta.getPontos()) {
+            return -1;
+        } if (this.pontos < aposta.getPontos()) {
+            return 1;
+        }
+        return 0;
+    }
+
 
 }
+

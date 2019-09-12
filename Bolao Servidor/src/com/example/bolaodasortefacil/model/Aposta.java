@@ -1,17 +1,19 @@
 package com.example.bolaodasortefacil.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Aposta implements Serializable {
 
     private String concurso;
     private String vendedor;
     private String telefoneJogador;
+    private Date data;
     private float valor;
     private String premio;
     private int[] dezenas;
 
-    public  Aposta(String concurso, String v, String tf, float valor, String premio, int d1, int d2, int d3, int d4, int d5,
+    public  Aposta(String concurso, String v, String tf, float valor, String premio, Date data, int d1, int d2, int d3, int d4, int d5,
                    int d6, int d7, int d8, int d9, int d10){
 
         this.concurso = concurso;
@@ -20,6 +22,7 @@ public class Aposta implements Serializable {
         this.telefoneJogador = tf;
         this.valor = valor;
         this.dezenas = new int[10];
+        this.data = data;
         this.dezenas[0] = d1;
         this.dezenas[1] = d2;
         this.dezenas[2] = d3;
@@ -81,6 +84,10 @@ public class Aposta implements Serializable {
 
     public void setConcurso(String concurso) {
         this.concurso = concurso;
+    }
+    
+    public Date getdata() {
+    	return data;
     }
 
 

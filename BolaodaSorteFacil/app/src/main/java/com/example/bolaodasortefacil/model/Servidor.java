@@ -5,16 +5,14 @@ import java.net.Socket;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import com.example.bolaodasortefacil.model.Concursos;
 
 
 
 
 public class Servidor {
 
-    //private static final String ipServidor = "192.168.0.107";
-    private static final String ipServidor = "221.1.1.106";
+    private static final String ipServidor = "192.168.1.105";
+   // private static final String ipServidor = "221.1.1.107";
     private static final int porta = 5010;
     private Socket servidor ;
     private ObjectInputStream  ler;

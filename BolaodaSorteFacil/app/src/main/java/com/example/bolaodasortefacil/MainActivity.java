@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity  {
     private String resultado;
     private TextView eLogin;
     private boolean acabou;
+    private Switch gerenciamento;
 
 
     @Override
@@ -33,7 +35,10 @@ public class MainActivity extends AppCompatActivity  {
         user = (EditText) findViewById(R.id.ed_telefone);
         senha = (EditText) findViewById(R.id.ed_senha);
         eLogin = (TextView) findViewById(R.id.tverro_login);
+        gerenciamento = (Switch) findViewById(R.id.sw_gerenciamento);
 
+        user.setText("");
+        senha.setText("");
 
     }
 
@@ -58,15 +63,22 @@ public class MainActivity extends AppCompatActivity  {
             eLogin.setText("Senha ou usuário incorreto");
             eLogin.setVisibility(View.VISIBLE);
 
-        } else if(resultado.equals("401")){
+        } else if (resultado.equals("401")) {
             eLogin.setText("Falha ao se comunicar com o servidor. Verifique sua internet ou tente mais tarde");
             eLogin.setVisibility(View.VISIBLE);
 
-        }   else{
+        } else {
             eLogin.setVisibility(View.INVISIBLE);
             Vendedor.setVendedor(user.getText().toString());
-            Intent aposta = new Intent(this, LoginJogador.class);
-            startActivity(aposta);
+
+            if (gerenciamento.isChecked()) {
+                Intent gerenciador = new Intent(this, Gerenciamento.class);
+                startActivity(gerenciador);
+
+            } else {
+                Intent aposta = new Intent(this, LoginJogador.class);
+                startActivity(aposta);
+            }
         }
     }
 
