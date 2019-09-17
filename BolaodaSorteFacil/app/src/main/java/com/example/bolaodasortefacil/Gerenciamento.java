@@ -1,11 +1,8 @@
 package com.example.bolaodasortefacil;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.bolaodasortefacil.model.Concurso;
 import com.example.bolaodasortefacil.model.Concursos;
 import com.example.bolaodasortefacil.model.Servidor;
-import com.example.bolaodasortefacil.view.Impressao;
-import com.example.bolaodasortefacil.view.LoginJogador;
 import com.example.bolaodasortefacil.view.Vencedores;
 
 import android.content.Intent;
@@ -35,16 +32,16 @@ public class Gerenciamento extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gerenciamento);
 
-        meses = (Spinner) findViewById(R.id.mes);
-        ano = (Spinner) findViewById(R.id.ano);
+        //meses = (Spinner) findViewById(R.id.mes);
+       // ano = (Spinner) findViewById(R.id.ano);
         lista_concursos = (ListView) findViewById(R.id.listaConcursos);
 
 
-        String [] m = {"janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro",
-        "outubro", "novembro", "dezembro"};
+        //String [] m = {"janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro",
+        //"outubro", "novembro", "dezembro"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, m);
-        meses.setAdapter(adapter);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, m);
+       // meses.setAdapter(adapter);
 
         getConcursos();
 
@@ -69,27 +66,27 @@ public class Gerenciamento extends AppCompatActivity {
         int tam, aux=0;
         tam = concurso.size();
         List<String> al = new ArrayList<String>();
-        ArrayList<Integer> ano = new ArrayList<Integer>();
+        //ArrayList<Integer> ano = new ArrayList<Integer>();
         Concursos c;
 
         while(aux< tam){
 
             c = this.concurso.get(aux);
 
-            al.add(c.getId() + " " + c.getData_final() + "   " + c.getHora_final());
+            al.add(c.getData_final() + "   " + c.getHora_final());
 
-            if(!ano.contains(c.getAno())){
+           /* if(!ano.contains(c.getAno())){
                 ano.add(c.getAno());
 
-            }
+            }*/
             aux = aux +1;
         }
 
         ArrayAdapter<String>  adapterC = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, al);
         lista_concursos.setAdapter(adapterC);
 
-        ArrayAdapter<Integer>  adapterA = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, ano);
-        this.ano.setAdapter(adapterA);
+        //ArrayAdapter<Integer>  adapterA = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, ano);
+        //this.ano.setAdapter(adapterA);
 
 
     }
@@ -97,7 +94,7 @@ public class Gerenciamento extends AppCompatActivity {
     public void showVencedores(int i){
 
         Intent vencedores = new Intent(this, Vencedores.class);
-        vencedores.putExtra("id",  concurso.get(i).getId());
+        vencedores.putExtra("id",  concurso.get(i).getData_final());
         startActivity(vencedores);
     }
 
@@ -122,11 +119,15 @@ public class Gerenciamento extends AppCompatActivity {
 
             try {
                 servidor.abrirConexao();
-                servidor.escreverParaServidor("vencedores");
+                servidor.escreverParaServidor("300");
                 concurso = (ArrayList<Concursos>)servidor.lerDoServidor();
 
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e)  {
                 resultado = "401";
+
+            } catch(ClassNotFoundException e){
+                resultado = "402";
+
             }
 
 

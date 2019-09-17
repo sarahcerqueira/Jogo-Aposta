@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.bolaodasortefacil.model.Servidor;
 import com.example.bolaodasortefacil.model.Vendedor;
@@ -23,7 +22,6 @@ public class MainActivity extends AppCompatActivity  {
     private EditText senha;
     private String resultado;
     private TextView eLogin;
-    private boolean acabou;
     private Switch gerenciamento;
 
 
@@ -47,19 +45,19 @@ public class MainActivity extends AppCompatActivity  {
         if (!checkSenha() | !checkUsuario()) {
             return;
         }
-        acabou = false;
         String u = user.getText().toString();
         String s = senha.getText().toString();
 
         Login l = new Login();
         l.execute(s, u);
+        resultado = null;
 
-        while (!acabou) {
+        while (resultado == null) {
         }
 
-        System.out.println(l.getStatus());
 
-        if (resultado.equals("erro")) {
+
+        if (resultado.equals("400")) {
             eLogin.setText("Senha ou usuário incorreto");
             eLogin.setVisibility(View.VISIBLE);
 
@@ -67,7 +65,12 @@ public class MainActivity extends AppCompatActivity  {
             eLogin.setText("Falha ao se comunicar com o servidor. Verifique sua internet ou tente mais tarde");
             eLogin.setVisibility(View.VISIBLE);
 
-        } else {
+        } else if (resultado.equals("402")) {
+            eLogin.setText("Erro: 402");
+            eLogin.setVisibility(View.VISIBLE);
+
+
+        }else {
             eLogin.setVisibility(View.INVISIBLE);
             Vendedor.setVendedor(user.getText().toString());
 
@@ -107,12 +110,8 @@ public class MainActivity extends AppCompatActivity  {
         return true;
     }
 
-    private void alert(String s){
-        Toast.makeText(this,s,Toast.LENGTH_LONG).show();
-    }
 
-
-    private class Login extends AsyncTask<String, Integer, String> {
+    private class Login extends AsyncTask<String, Void, Void> {
 
         private Servidor servidor;
 
@@ -120,22 +119,25 @@ public class MainActivity extends AppCompatActivity  {
 
 
         @Override
-        protected String doInBackground(String... voids) {
+        protected Void doInBackground(String... voids) {
             servidor = new Servidor();
             try {
                 servidor.abrirConexao();
-                servidor.escreverParaServidor("login");
+                servidor.escreverParaServidor("100");
                 servidor.escreverParaServidor(voids[0]);
                 servidor.escreverParaServidor(voids[1]);
                 resultado = (String) servidor.lerDoServidor();
                 servidor.fechaConexao();
 
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e)  {
                 resultado = "401";
+
+            } catch(ClassNotFoundException e){
+                resultado = "402";
+
             }
 
-            acabou = true;
-            return resultado;
+            return null;
         }
 
 

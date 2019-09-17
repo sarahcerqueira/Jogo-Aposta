@@ -1,27 +1,15 @@
 package com.example.bolaodasortefacil.model;
 import java.io.Serializable;
-import java.util.Date;
-
 
 public class Concursos implements Serializable {
 
-	private String id;
 	private String hora_final;
 	private String data_final;
 
-	public Concursos(String id, String h, String d){
-		this.id = id;
+	public Concursos( String h, String d){
 		this.data_final = d;
 		this.hora_final = h;
 
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getHora_final() {
@@ -42,8 +30,10 @@ public class Concursos implements Serializable {
 
 	public int getAno() {
 
-		return Integer.parseInt(this.data_final.substring(6,10));
+
+		return Integer.parseInt(this.data_final.substring(0,4));
 	}
 
 
 }
+

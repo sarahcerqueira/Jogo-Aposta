@@ -27,8 +27,6 @@ public class ApostaActivity extends AppCompatActivity  {
 
     private TextView numero_duplicado;
     private Spinner sp_concursos;
-    private Spinner premio;
-    private TextView valor;
     private EditText d1;
     private EditText d2;
     private EditText d3;
@@ -53,8 +51,6 @@ public class ApostaActivity extends AppCompatActivity  {
 
         sp_concursos = (Spinner) findViewById(R.id.sp_concursos);
         numero_duplicado = (TextView) findViewById(R.id.tv_eaposta);
-        premio = (Spinner)   findViewById(R.id.sp_premio);
-        valor = (TextView)  findViewById(R.id.valor);
         d1 = (EditText) findViewById(R.id.d1);
         d2 = (EditText) findViewById(R.id.d2);
         d3 = (EditText) findViewById(R.id.d3);
@@ -67,10 +63,7 @@ public class ApostaActivity extends AppCompatActivity  {
         d10 = (EditText) findViewById(R.id.d10);
         jogador = new Jogador();
 
-
-        String [] premios = {"1º ao 5º"};
-        ArrayAdapter<String>  adapter_premios = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, premios);
-        premio.setAdapter(adapter_premios);
+        resultado = null;
 
         SolicitacaoConcursos sc = new SolicitacaoConcursos();
         sc.execute();
@@ -78,9 +71,15 @@ public class ApostaActivity extends AppCompatActivity  {
         while(resultado== null){}
 
         if (resultado.equals("401")){
-            //botar um erro aqui
+            this.numero_duplicado.setText("Falha ao se comunicar com o servidor. Verifique sua internet ou tente mais tarde");
+            this.numero_duplicado.setVisibility(View.VISIBLE);
 
-        } else if(resultado.equals("ok")){
+        } else if(resultado.equals("402")) {
+
+            this.numero_duplicado.setText("Erro: 402");
+            this.numero_duplicado.setVisibility(View.VISIBLE);
+
+        }else if(resultado.equals("1")){
 
             int tam, aux=0;
             tam = concursos.size();
@@ -90,7 +89,7 @@ public class ApostaActivity extends AppCompatActivity  {
             while(aux< tam){
 
                 c = this.concursos.get(aux);
-                al.add(c.getId() + " " + c.getData_final() + " - " + c.getHora_final());
+                al.add( c.getData_final() + " - " + c.getHora_final());
                 aux = aux +1;
             }
 
@@ -103,6 +102,7 @@ public class ApostaActivity extends AppCompatActivity  {
     }
 
     public void finalizar(View view){
+
         if(this.criaApostar()){
             ApostaS serv = new ApostaS();
             resultado = null;
@@ -128,9 +128,9 @@ public class ApostaActivity extends AppCompatActivity  {
 
         Date data = new Date();
 
-        if(checkDezenaVazia() && checkDuplicidadeDezenas()){
+        if(checkDezenaVazia()){
 
-            jogador.apostar(Integer.toString(this.getIdConcurso(sp_concursos.getSelectedItem().toString())),Vendedor.getVendedor(), Float.parseFloat("10.00"),premio.getSelectedItem().toString(), data, Integer.parseInt(d1.getText().toString()),
+            jogador.apostar(1,this.getIdConcurso(sp_concursos.getSelectedItem().toString()),Vendedor.getVendedor(), Float.parseFloat("10.00"),"1º ao 5º", data, Integer.parseInt(d1.getText().toString()),
                     Integer.parseInt(d2.getText().toString()), Integer.parseInt(d3.getText().toString()), Integer.parseInt(d4.getText().toString()),
                     Integer.parseInt(d5.getText().toString()), Integer.parseInt(d6.getText().toString()), Integer.parseInt(d7.getText().toString()),
                     Integer.parseInt(d8.getText().toString()), Integer.parseInt(d9.getText().toString()), Integer.parseInt(d10.getText().toString()));
@@ -157,43 +157,8 @@ public class ApostaActivity extends AppCompatActivity  {
         return true;
     }
 
-    public boolean checkDuplicidadeDezenas(){
 
-        String s1, s2, s3, s4, s5, s6, s7, s8, s9, s10;
-
-        s1 = d1.getText().toString();
-        s2 = d2.getText().toString();
-        s3 = d3.getText().toString();
-        s4 = d4.getText().toString();
-        s5 = d5.getText().toString();
-        s6 = d6.getText().toString();
-        s7 = d7.getText().toString();
-        s8 = d8.getText().toString();
-        s9 = d9.getText().toString();
-        s10 = d10.getText().toString();
-
-        if(s1.equals(s2) | s1.equals(s3) | s1.equals(s4) | s1.equals(s5)  | s1.equals(s6)  | s1.equals(s7) | s1.equals(s8) | s1.equals(s9) | s1.equals(s10)
-                | s2.equals(s3)| s2.equals(s4)| s2.equals(s5)| s2.equals(s6)| s2.equals(s7)| s2.equals(s8)| s2.equals(s9)| s2.equals(s10)
-                | s3.equals(s4)| s3.equals(s5)| s3.equals(s6)|| s3.equals(s7)| s3.equals(s8)| s3.equals(s9)| s3.equals(s10)
-                | s4.equals(s5)| s4.equals(s6)| s4.equals(s7)| s4.equals(s8)| s4.equals(s9)| s4.equals(s10)
-                | s5.equals(s6)| s5.equals(s7)| s5.equals(s8)| s5.equals(s9)| s5.equals(s10)
-                | s6.equals(s7)| s6.equals(s8)| s6.equals(s9)| s5.equals(s10)
-                | s7.equals(s8)| s7.equals(s9)| s7.equals(s10)
-                | s8.equals(s9)| s8.equals(s10)
-                | s9.equals(s10)){
-
-            this.numero_duplicado.setText("Dezenas duplicadas");
-            this.numero_duplicado.setVisibility(View.VISIBLE);
-            return false;
-        } else {
-            this.numero_duplicado.setVisibility(View.INVISIBLE);
-
-        }
-
-        return true;
-    }
-
-    private int getIdConcurso(String concurso){
+    private String getIdConcurso(String concurso){
 
         int tam, aux=0;
         tam = concursos.size();
@@ -204,15 +169,15 @@ public class ApostaActivity extends AppCompatActivity  {
 
             c = this.concursos.get(aux);
 
-            if(concurso.equals(c.getId() + " " + c.getData_final() + " - " + c.getHora_final())){
-                return Integer.parseInt(c.getId());
+            if(concurso.equals( c.getData_final() + " - " + c.getHora_final())){
+                return c.getData_final();
             }
 
 
             aux = aux +1;
         }
 
-        return 0;
+        return null;
     }
 
 
@@ -258,15 +223,18 @@ public class ApostaActivity extends AppCompatActivity  {
             servidor = new Servidor();
             try {
                 servidor.abrirConexao();
-                servidor.escreverParaServidor("concursosAtivos");
+                servidor.escreverParaServidor("304");
                 concursos = (ArrayList<Concursos>) servidor.getLer().readObject();
                 servidor.fechaConexao();
-                resultado = "ok";
+                resultado = "1";
 
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e)  {
                 resultado = "401";
-            }
 
+            } catch(ClassNotFoundException e){
+                resultado = "402";
+
+            }
 
             return null;
         }
@@ -288,13 +256,17 @@ public class ApostaActivity extends AppCompatActivity  {
 
             try {
                 servidor.abrirConexao();
-                servidor.escreverParaServidor("Apostar");
-                servidor.escreverParaServidor(jogador);
+                servidor.escreverParaServidor("203");
+                servidor.escreverParaServidor(jogador.getAposta());
                 resultado = (String)servidor.lerDoServidor();
                 servidor.fechaConexao();
 
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e)  {
                 resultado = "401";
+
+            } catch(ClassNotFoundException e){
+                resultado = "402";
+
             }
 
 

@@ -5,8 +5,10 @@ import java.util.Date;
 
 public class Aposta implements Serializable, Comparable<Aposta> {
 
+    private int maquina;
     private String concurso;
     private String vendedor;
+    private String nomeJogador;
     private String telefoneJogador;
     private Date data;
     private float valor;
@@ -14,10 +16,11 @@ public class Aposta implements Serializable, Comparable<Aposta> {
     private Dezena[] dezenas;
     private int pontos;
 
-    public  Aposta(String concurso, String v, String tf, float valor, String premio, Date data, int d1, int d2, int d3, int d4, int d5,
+    public  Aposta(int maquina, String concurso, String v, String tf, float valor, String premio, Date data, int d1, int d2, int d3, int d4, int d5,
                    int d6, int d7, int d8, int d9, int d10){
 
         dezenas = new Dezena[10];
+        this.maquina = maquina;
         this.concurso = concurso;
         this.vendedor = v;
         this.premio = premio;
@@ -61,6 +64,13 @@ public class Aposta implements Serializable, Comparable<Aposta> {
         return valor;
     }
 
+    public void setJogador(String nome){
+        this.nomeJogador = nome;
+    }
+
+    public String getJogador(){
+        return this.nomeJogador;
+    }
     public void setValor(float valor) {
         this.valor = valor;
     }
@@ -93,6 +103,10 @@ public class Aposta implements Serializable, Comparable<Aposta> {
 
     public void setAcertou(boolean b, int i) {
         dezenas[i].setAcertou(b);
+    }
+
+    public boolean getAcertou( int i) {
+        return dezenas[i].isAcertou();
     }
 
 
@@ -138,5 +152,12 @@ public class Aposta implements Serializable, Comparable<Aposta> {
     }
 
 
-}
+    public int getMaquina() {
+        // TODO Auto-generated method stub
+        return maquina;
+    }
 
+
+
+
+}

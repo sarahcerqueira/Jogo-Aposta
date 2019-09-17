@@ -322,38 +322,81 @@
 
             </TableLayout>
 
-            <TextView
-                android:id="@+id/textView4"
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/arima_madurai_thin"
-                android:text="Prêmio:"
-                android:textSize="24sp" />
+                android:layout_height="match_parent">
 
-            <Spinner
-                android:id="@+id/sp_premio"
-                android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:layout_gravity="center|center_horizontal"
-                android:gravity="center"
-                android:textAlignment="center" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="108dp"
-                android:layout_height="36dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/arima_madurai_thin"
-                android:text="@string/valor"
-                android:textSize="24sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/valor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="R$ 10,00"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp" />
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/arima_madurai_thin"
+                            android:text="Prêmio:"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/amaranth"
+                            android:gravity="bottom"
+                            android:text="1º ao 5º"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left">
+
+                    <LinearLayout
+                        android:layout_width="107dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/arima_madurai_thin"
+                            android:text="@string/valor"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/valor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/amaranth"
+                            android:text="R$ 10,00"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
 
             <TableLayout
                 android:layout_width="wrap_content"

@@ -44,12 +44,16 @@ public class CadastroJogador extends AppCompatActivity {
 
         while(resultado==null){}
 
-        if(resultado.equals("erro")){
+        if(resultado.equals("403")){
             eCadastro.setText("Telefone já está cadastrado");
             eCadastro.setVisibility(View.VISIBLE);
 
         } else if (resultado.equals("401")) {
             eCadastro.setText("Falha ao se comunicar com o servidor. Verifique sua internet ou tente mais tarde");
+            eCadastro.setVisibility(View.VISIBLE);
+
+        } else if (resultado.equals("402")) {
+            eCadastro.setText("Erro: 402");
             eCadastro.setVisibility(View.VISIBLE);
 
         } else{
@@ -92,7 +96,7 @@ public class CadastroJogador extends AppCompatActivity {
         return true;
     }
 
-    private class Cadastro extends AsyncTask<String, Integer, String> {
+    private class Cadastro extends AsyncTask<String, Void, Void> {
 
         private Servidor servidor;
 
@@ -100,21 +104,25 @@ public class CadastroJogador extends AppCompatActivity {
 
 
         @Override
-        protected String doInBackground(String... voids) {
+        protected Void doInBackground(String... voids) {
             servidor = new Servidor();
             try {
                 servidor.abrirConexao();
-                servidor.escreverParaServidor("cadastroJogador");
+                servidor.escreverParaServidor("201");
                 servidor.escreverParaServidor(voids[0]); //telefone
                 servidor.escreverParaServidor(voids[1]);// nome
                 resultado = (String) servidor.lerDoServidor(); // erro
                 servidor.fechaConexao();
 
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e)  {
                 resultado = "401";
+
+            } catch(ClassNotFoundException e){
+                resultado = "402";
+
             }
 
-            return resultado;
+            return null;
         }
 
 

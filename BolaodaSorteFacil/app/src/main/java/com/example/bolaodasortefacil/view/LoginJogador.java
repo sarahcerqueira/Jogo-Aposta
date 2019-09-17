@@ -43,13 +43,14 @@ public class LoginJogador extends AppCompatActivity {
             return;
         }
 
+        resultado = null;
         Entrar e = new Entrar();
         e.execute(telefone.getText().toString());
 
         while (resultado == null) {
         }
 
-        if (resultado.equals("cadastrar")) {
+        if (resultado.equals("400")) {
             Jogador.setTelefone(telefone.getText().toString());
             Intent cadJogador = new Intent(this, CadastroJogador.class);
             startActivity(cadJogador);
@@ -58,7 +59,11 @@ public class LoginJogador extends AppCompatActivity {
             eLogin.setText("Falha ao se comunicar com o servidor. Verifique sua internet ou tente mais tarde");
             eLogin.setVisibility(View.VISIBLE);
 
-        } else{
+        } else if (resultado.equals("402")) {
+            eLogin.setText("Erro: 402");
+            eLogin.setVisibility(View.VISIBLE);
+
+        }else{
             eLogin.setVisibility(View.INVISIBLE);
             Jogador.setTelefone(telefone.getText().toString());
             Intent aposta = new Intent(this, ApostaActivity.class);
@@ -105,13 +110,17 @@ public class LoginJogador extends AppCompatActivity {
             servidor = new Servidor();
             try {
                 servidor.abrirConexao();
-                servidor.escreverParaServidor("loginJogador");
+                servidor.escreverParaServidor("101");
                 servidor.escreverParaServidor(voids[0]);
                 resultado = (String) servidor.lerDoServidor();
                 servidor.fechaConexao();
 
-            } catch (IOException | ClassNotFoundException e) {
-               resultado = "401";
+            } catch (IOException e)  {
+                resultado = "401";
+
+            } catch(ClassNotFoundException e){
+                resultado = "402";
+
             }
 
 

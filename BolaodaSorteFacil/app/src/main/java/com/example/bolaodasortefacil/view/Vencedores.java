@@ -8,7 +8,6 @@ import com.example.bolaodasortefacil.model.Vendedor;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,7 +23,7 @@ public class Vencedores extends AppCompatActivity {
     private ListView win;
     private TextView tv_win;
     private TextView tv_dezena;
-    private ArrayList<Integer> dezena;
+    private  ArrayList<Integer []> dezena;
     private TextView texto;
 
 
@@ -33,6 +32,7 @@ public class Vencedores extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vencedores);
+
         id = (String)getIntent().getExtras().getSerializable("id");
        // win = (ListView) findViewById(R.id.vencedores);
         tv_win = (TextView) findViewById(R.id.tv_win);
@@ -53,11 +53,34 @@ public class Vencedores extends AppCompatActivity {
 
 
         if(aposta != null){
+            int aux =0, tam = dezena.size();
+            resultado= "\nValor arrecadado: R$"+ 10.00 * aposta.size()+"0";
+            Integer[] d;
 
-            tv_dezena.setText(dezena.get(0) + " " + dezena.get(1) + " "+ dezena.get(2)+" "+ dezena.get(3)+ " "+ dezena.get(4)+" "+ dezena.get(5)+
-                    " "+ dezena.get(6)+" "+ dezena.get(7)+ " " + dezena.get(8)+ " "+ dezena.get(9));
+            while(aux<tam){
+                d = dezena.get(aux);
+                resultado = resultado+ "\n ";
 
-            int aux =0, tam = aposta.size();
+
+                for(int j=0; j<5; j++){
+
+                    if(d[j]< 10){
+                        resultado =resultado + "0"+ d[j]+" ";
+
+                    } else {
+                        resultado = resultado + d[j]+" ";
+
+                    }
+                }
+
+            aux = aux + 1;
+
+            }
+
+            tv_dezena.setText(resultado);
+
+             aux =0;
+             tam = aposta.size();
             List<String> all = new ArrayList<String>() ;
             resultado = "";
 
@@ -65,15 +88,31 @@ public class Vencedores extends AppCompatActivity {
                 Aposta a = aposta.get(aux);
 
                 if(a.getVendedor().equals(Vendedor.getVendedor())) {
-                    resultado = resultado + ("\n\n Telefone: " + a.getTelefoneJogador() + "\n Pontos: " + a.getPontos() +
-                            "\n Dezenas jogadas: "+a.getDezenas(0) + " " + a.getDezenas(1) + " " + a.getDezenas(2) + " " + a.getDezenas(3) + " " + a.getDezenas(4) + " " + a.getDezenas(5) +
-                            " " + a.getDezenas(6) + " " + a.getDezenas(7) + " " + a.getDezenas(8) + " " + a.getDezenas(9) + "\n\n" );
+
+                    resultado = resultado + ( "\n\n Nome: "+a.getJogador()+ "\n Telefone: " + a.getTelefoneJogador() + "\n Pontos: " + a.getPontos() +
+                            "\n Dezenas jogadas: ");
+
+
                 } else {
                     resultado = resultado + ("\n\n Pontos: " + a.getPontos() +
-                                "\n Dezenas jogadas: "+a.getDezenas(0) + " " + a.getDezenas(1) + " " + a.getDezenas(2) + " " + a.getDezenas(3) + " " + a.getDezenas(4) + " " + a.getDezenas(5) +
-                                " " + a.getDezenas(6) + " " + a.getDezenas(7) + " " + a.getDezenas(8) + " " + a.getDezenas(9) + "\n\n" );
+                                "\n Dezenas jogadas: ");
 
                 }
+
+                for(int j=0; j<10; j++){
+
+                    int dez = a.getDezenas(j);
+
+                    if(dez < 10){
+                        resultado =resultado + "0"+ dez+" ";
+
+                    } else {
+                        resultado = resultado + dez+" ";
+
+                    }
+                }
+
+
 
                 aux = aux +1;
             }
@@ -100,14 +139,18 @@ public class Vencedores extends AppCompatActivity {
 
             try {
                 servidor.abrirConexao();
-                servidor.escreverParaServidor("win");
+                servidor.escreverParaServidor("301");
                 servidor.escreverParaServidor(id);
                 aposta = (ArrayList<Aposta>)servidor.lerDoServidor();
-                dezena = (ArrayList<Integer>) servidor.lerDoServidor();
+                dezena = ( ArrayList<Integer []>) servidor.lerDoServidor();
                 resultado = "ok";
 
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e)  {
                 resultado = "401";
+
+            } catch(ClassNotFoundException e){
+                resultado = "402";
+
             }
 
 

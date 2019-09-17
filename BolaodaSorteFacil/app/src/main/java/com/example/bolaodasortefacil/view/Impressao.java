@@ -326,10 +326,18 @@ public class Impressao extends AppCompatActivity implements Runnable {
 
             dados = dados + "\n Concurso: " + a.getConcurso() + "\n";
 
-            dados = dados + " Dezena:\n" +" " +a.getDezenas(0) + " " + a.getDezenas(1) + " " + a.getDezenas(2) + " " + a.getDezenas(3) + " " + a.getDezenas(4) + " " + a.getDezenas(5) +
-                    " " + a.getDezenas(6) + " " + a.getDezenas(7) + " " + a.getDezenas(8) + " " + a.getDezenas(9) + "\n\n";
+            dados = dados + " Dezena:\n";
 
-            dados = dados + " Premio: " + a.getPremio() + "\n";
+            for(int j=0; j<10; j++) {
+                int x = a.getDezenas(j);
+
+                if(x< 10) {
+                    dados = dados + " 0" + x;
+                } else {
+                    dados = dados + " " + x;
+                }
+            }
+            dados = dados + "\n Premio: " + a.getPremio() + "\n";
 
             dados = dados + " Valor: R$" + Float.toString(a.getValor()) + "0\n";
 
@@ -346,6 +354,8 @@ public class Impressao extends AppCompatActivity implements Runnable {
             }
 
         }
+
+        dados = dados + "  Boa Sorte! \n\n\n\n";
 
     }
 
