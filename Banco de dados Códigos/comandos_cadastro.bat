@@ -33,3 +33,6 @@ SELECT * FROM maquina
 
 //VER jogador
 SELECT * FROM jogador
+
+//Excluir concurso
+delete FROM concurso where data='2019/09/18'
