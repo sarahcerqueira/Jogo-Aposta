@@ -11,8 +11,25 @@ VALUES('Cesa', 'cesa', '1234', true),
 INSERT INTO concurso(data, hora)
 VALUES('2019/09/16', '{00:00}')
 
-
 //Alterar data de concurso
 update concurso 
 set data = '2019/09/21'
 where data = '2019/09/16'
+
+//Ver usuarios Cadastrados
+SELECT * FROM usuario
+
+//Ver dezenas
+SELECT * FROM dezena
+
+//Ver concursos
+SELECT * FROM concurso
+
+//VER apostas
+SELECT * FROM aposta
+
+//VER maquinas
+SELECT * FROM maquina
+
+//VER jogador
+SELECT * FROM jogador
