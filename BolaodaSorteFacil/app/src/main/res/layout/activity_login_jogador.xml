@@ -19,7 +19,7 @@
             android:visibility="visible">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageView1"
                 android:layout_width="match_parent"
                 android:layout_height="247dp"
                 android:layout_margin="15dp"
@@ -37,7 +37,7 @@
                 android:textSize="36sp" />
 
             <TextView
-                android:id="@+id/tv_eLoginJogador"
+                android:id="@+id/tv_eCadastroMaquina"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"

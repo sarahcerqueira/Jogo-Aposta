@@ -31,7 +31,7 @@ public class LoginJogador extends AppCompatActivity {
 
         this.telefone = (EditText) findViewById(R.id.ed_telefone);
         this.entrar = (Button) findViewById(R.id.bt_entrar);
-        eLogin = (TextView) findViewById(R.id.tv_eLoginJogador);
+        eLogin = (TextView) findViewById(R.id.tv_eCadastroMaquina);
 
         this.telefone.setText(null);
 

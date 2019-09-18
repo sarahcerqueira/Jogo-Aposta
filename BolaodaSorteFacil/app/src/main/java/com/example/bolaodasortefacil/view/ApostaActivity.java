@@ -5,20 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 
 import com.example.bolaodasortefacil.R;
 import com.example.bolaodasortefacil.model.Concursos;
+import com.example.bolaodasortefacil.model.Maquina;
 import com.example.bolaodasortefacil.model.Servidor;
 import java.util.ArrayList;
 
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 import com.example.bolaodasortefacil.model.Jogador;
 import com.example.bolaodasortefacil.model.Vendedor;
 
@@ -98,6 +106,218 @@ public class ApostaActivity extends AppCompatActivity  {
 
         }
 
+        d1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                    if(d1.getText().toString().trim().length() == 2){
+                       // d1.setText("0"+d1.getText().toString());
+                        d2.requestFocus();
+
+                    }
+
+
+            }
+        });
+
+        d2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+                if(d2.getText().toString().trim().length() == 2){
+                   // d2.setText("0"+d2.getText().toString());
+                    d3.requestFocus();
+
+                }
+
+
+            }
+        });
+
+        d3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(d3.getText().toString().trim().length() == 2){
+                    //d3.setText("0"+d3.getText().toString());
+                    d4.requestFocus();
+
+                }
+
+
+            }
+        });
+
+        d4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(d4.getText().toString().trim().length() == 2){
+                    //d4.setText("0"+d4.getText().toString());
+                    d5.requestFocus();
+
+                }
+
+
+            }
+        });
+
+        d5.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(d5.getText().toString().trim().length() == 2){
+                   // d5.setText("0"+d5.getText().toString());
+                    d6.requestFocus();
+
+                }
+
+
+            }
+        });
+
+        d6.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(d6.getText().toString().trim().length() == 2){
+                    //d6.setText("0"+d6.getText().toString());
+                    d7.requestFocus();
+
+                }
+
+
+            }
+        });
+
+        d7.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(d7.getText().toString().trim().length() == 2){
+                  //  d7.setText("0"+d7.getText().toString());
+                    d8.requestFocus();
+
+                }
+
+
+            }
+        });
+
+        d8.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(d8.getText().toString().trim().length() == 2){
+                  //  d8.setText("0"+d8.getText().toString());
+                    d9.requestFocus();
+
+                }
+
+
+            }
+        });
+
+        d9.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(d9.getText().toString().trim().length() == 2){
+                   // d9.setText("0"+d9.getText().toString());
+                    d10.requestFocus();
+
+                }
+
+
+            }
+        });
+
+
+
+
 
     }
 
@@ -130,7 +350,7 @@ public class ApostaActivity extends AppCompatActivity  {
 
         if(checkDezenaVazia()){
 
-            jogador.apostar(1,this.getIdConcurso(sp_concursos.getSelectedItem().toString()),Vendedor.getVendedor(), Float.parseFloat("10.00"),"1º ao 5º", data, Integer.parseInt(d1.getText().toString()),
+            jogador.apostar(Maquina.getMaquina(),this.getIdConcurso(sp_concursos.getSelectedItem().toString()),Vendedor.getVendedor(), Float.parseFloat("10.00"),"1º ao 5º", data, Integer.parseInt(d1.getText().toString()),
                     Integer.parseInt(d2.getText().toString()), Integer.parseInt(d3.getText().toString()), Integer.parseInt(d4.getText().toString()),
                     Integer.parseInt(d5.getText().toString()), Integer.parseInt(d6.getText().toString()), Integer.parseInt(d7.getText().toString()),
                     Integer.parseInt(d8.getText().toString()), Integer.parseInt(d9.getText().toString()), Integer.parseInt(d10.getText().toString()));

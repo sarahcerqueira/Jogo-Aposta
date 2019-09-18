@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Servidor {
 
-    private static final String ipServidor = "192.168.1.100";
+    private static final String ipServidor = "192.168.1.103";
    // private static final String ipServidor = "221.1.1.107";
     private static final int porta = 5010;
     private Socket servidor ;

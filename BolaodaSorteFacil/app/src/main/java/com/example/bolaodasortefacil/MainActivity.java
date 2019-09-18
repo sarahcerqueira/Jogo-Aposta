@@ -9,10 +9,15 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.bolaodasortefacil.model.Empacotamento;
+import com.example.bolaodasortefacil.model.Maquina;
 import com.example.bolaodasortefacil.model.Servidor;
 import com.example.bolaodasortefacil.model.Vendedor;
+import com.example.bolaodasortefacil.view.CadastrarMaquina;
 import com.example.bolaodasortefacil.view.LoginJogador;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -29,6 +34,31 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FileInputStream fin = null;
+        String temp="";
+
+        try {
+            fin = openFileInput("maquina");
+
+            int c;
+            while( (c = fin.read()) != -1){
+                temp = temp + Character.toString((char)c);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(fin == null){
+            Intent main = new Intent(this, CadastrarMaquina.class);
+            startActivity(main);
+
+        } else {
+            Maquina.setMaquina(Integer.parseInt(temp));
+
+        }
 
         user = (EditText) findViewById(R.id.ed_telefone);
         senha = (EditText) findViewById(R.id.ed_senha);

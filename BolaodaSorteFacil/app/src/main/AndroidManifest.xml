@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_OWNER_DATA" />
+    <uses-permission android:name="android.permission.READ_OWNER_DATA" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +17,8 @@
         android:roundIcon="@mipmap/ic_trevo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.Vencedores"></activity>
+        <activity android:name=".view.CadastrarMaquina"></activity>
+        <activity android:name=".view.Vencedores" />
         <activity android:name=".Gerenciamento" />
         <activity android:name=".view.DeviceListActivity" />
         <activity android:name=".CadastroJogador" />

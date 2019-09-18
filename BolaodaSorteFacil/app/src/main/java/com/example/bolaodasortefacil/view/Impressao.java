@@ -326,7 +326,7 @@ public class Impressao extends AppCompatActivity implements Runnable {
 
             dados = dados + "\n Concurso: " + a.getConcurso() + "\n";
 
-            dados = dados + " Dezena:\n";
+            dados = dados + " Dezena: ";
 
             for(int j=0; j<10; j++) {
                 int x = a.getDezenas(j);

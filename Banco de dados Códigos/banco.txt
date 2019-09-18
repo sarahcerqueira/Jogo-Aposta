@@ -52,6 +52,11 @@ create table maquina(
 	
 )
 
+create table maquina(
+	id integer primary key
+	
+)
+
 create table dezena(
 	id serial primary key,
 	concurso date not null,

@@ -97,7 +97,7 @@
                 android:textColorHint="@color/colorAmarelo" />
 
             <Button
-                android:id="@+id/bt_entrar"
+                android:id="@+id/bt_cadastrarMaquina"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
